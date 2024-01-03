@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 
 const WEBSERVER_HTTP_PORT = 3131;
 
+var app = express();
+
 module.exports = {
     init: () => {
 
@@ -24,7 +26,7 @@ module.exports = {
         });*/
     
         app.listen(WEBSERVER_HTTP_PORT, ()=>{
-            log(`Webserver listening on http://localhost:${WEBSERVER_HTTP_PORT}!`, 'Webserver');
+            console.log(`Webserver listening on http://localhost:${WEBSERVER_HTTP_PORT}!`, 'Webserver');
         });
     },
 }
