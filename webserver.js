@@ -32,28 +32,30 @@ const HTMLMainBody = (SOCKET_PORT) => {
 }
 
 module.exports = {
-    init_webserver: (WEB_PORT, SOCKET_PORT) => {
-        let WEB_SERVER = express();
-    
-        WEB_SERVER.use(bodyParser.json());
-        WEB_SERVER.use(bodyParser.urlencoded({ extended: false }));
-    
-        WEB_SERVER.use(express.static(WEBSERVER_PUBLIC_PATH));
-    
-        WEB_SERVER.on('error', (e) => {
-            if (e.code === 'EADDRINUSE') {
-                console.error('Address in use, retrying...');
-            }
+    init_webserver: async (WEB_PORT, SOCKET_PORT) => {
+        return new Promise( (res, rej) => {
+            let WEB_SERVER = express();
+        
+            WEB_SERVER.use(bodyParser.json());
+            WEB_SERVER.use(bodyParser.urlencoded({ extended: false }));
+        
+            WEB_SERVER.use(express.static(WEBSERVER_PUBLIC_PATH));
+        
+            WEB_SERVER.on('error', (e) => {
+                if (e.code === 'EADDRINUSE') {
+                    console.error('Address in use, retrying...');
+                }
+                rej(e);
+            });
+        
+            WEB_SERVER.get('/', (req, res) => {
+                res.send(HTMLMainBody(SOCKET_PORT));
+            });
+        
+            WEB_SERVER.listen(WEB_PORT, ()=>{
+                console.log(`Webserver listening on\nhttp://localhost:${WEB_PORT}`);
+                res (true);
+            });
         });
-    
-        WEB_SERVER.get('/', (req, res) => {
-            res.send(HTMLMainBody(SOCKET_PORT));
-        });
-    
-        WEB_SERVER.listen(WEB_PORT, ()=>{
-            console.log(`Webserver listening on\nhttp://localhost:${WEB_PORT}`);
-        });
-    
-        return WEB_SERVER;
     }
 }

@@ -2,3 +2,20 @@ body {
     margin: auto;
     padding: 0;
 }
+
+.status_item {
+    display: flex;
+    flex-direction: row;
+}
+
+.status_name {
+    margin: auto 0;
+}
+
+.status_icon {
+    width: 16px;
+    height: 16px;
+    margin: 9px;
+    padding: 0;
+    border-radius: 50%;    
+}
