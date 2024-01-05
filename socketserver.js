@@ -45,6 +45,54 @@ module.exports = {
 
     },
 
+    change_text_item: (name, item_name, text) => {
+        if (clients.length === 0){
+            return false;
+        }
+
+        console.log('change_text_item', {name, text} );
+
+        const i = _status.list.findIndex( v => v.name === name);
+
+        if (i === -1) {
+            return false;
+        }
+
+        const v = _status.list[i].values.findIndex( v => v.name === item_name);
+        if (v === -1) {
+            return false;
+        }
+
+        _status.list[i].values[v].text = text;
+
+        if (_status.list[i].status === item_name) {
+            clients.forEach ( v => {
+                send(v, 'change_text_item', {name, item_name, text});
+            });
+        }
+    },
+
+    change_status_text: (name, text) => {
+        if (clients.length === 0){
+            return false;
+        }
+
+        console.log('change_status_text', {name, text} );
+
+        const i = _status.list.findIndex( v => v.name === name);
+
+        if (i === -1) {
+            return false;
+        }
+
+        _status.list[i].text = text;
+
+        clients.forEach ( v => {
+            send(v, 'change_status_text', {name, text});
+        });
+        
+    },
+
     init_socket_server: (SOCKET_PORT) => {
         let SOCKET_SERVER = new WebSocket.WebSocketServer({ port: SOCKET_PORT });
 

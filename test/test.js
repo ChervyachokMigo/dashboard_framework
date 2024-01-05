@@ -23,7 +23,18 @@ const main = async () => {
 
     setInterval( ()=> {
         i = (i + 1) % vals.length;
+        
         dashboard.change_status_item('running', vals[i]);
+        
+        if (i === 0){
+            dashboard.change_text_item('running', 'on', 'вкл 1');
+        } else if (i === 1) {
+            dashboard.change_text_item('running', 'off', 'выкл 2');
+        } else if (i === 2) {
+            dashboard.change_text_item('running', 'on', 'вкл 3');
+        }
+
+        dashboard.change_status_text('running', 'Рабочая лошадь')
         
     }, 2000)
 
