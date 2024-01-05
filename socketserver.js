@@ -18,25 +18,31 @@ module.exports = {
         return _status;
     },
 
-    add_status_item: (name, values, status) => {
-        _status.list.push({name, values, status});
+    add_status_item: (name, text, values, status) => {
+        _status.list.push({name, text, values, status});
     },
 
     change_status_item: (name, status) => {
-        console.log({action: 'change_status_item', response_data: {name, status} })
+        if (clients.length === 0){
+            return false;
+        }
+
+        console.log('change_status_item', {name, status} );
 
         const i = _status.list.findIndex( v => v.name === name);
+
+        if (i === -1) {
+            return false;
+        }
+
         if (_status.list[i].values.find( v => v.name === status)) {
             _status.list[i].status = status;
         }
 
-        if (clients.length > 0){
-        
-            clients.forEach ( v => {
-                send(v, 'change_status_item', {name, status});
-            });
+        clients.forEach ( v => {
+            send(v, 'change_status_item', {name, status});
+        });
 
-        }
     },
 
     init_socket_server: (SOCKET_PORT) => {

@@ -6,10 +6,12 @@ const main = async () => {
     dashboard.prepare([
         {   
             name: 'running',
+            text: 'Рабочая панель',
             status: 'on',
             values: [
-                {name: 'on', color: [0,255,0]}, 
-                {name: 'off', color: [255,0,0]}
+                {name: 'on', color: [0,255,0], text: 'вкл'}, 
+                {name: 'off', color: [255,0,0], text: 'выкл'},
+                {name: 'test', color: [0,0,50], text: 'test'}
             ]
         }
     ]);
@@ -21,10 +23,9 @@ const main = async () => {
 
     setInterval( ()=> {
         i = (i + 1) % vals.length;
-        console.log(vals[i]);
         dashboard.change_status_item('running', vals[i]);
         
-    }, 3000)
+    }, 2000)
 
     
 

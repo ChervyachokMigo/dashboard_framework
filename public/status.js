@@ -20,29 +20,28 @@ const socket_send = (action, request_data = null) => {
 
 const change_status_item = (name, status) => {
     const item = _STATUS.list.find( v => v.name === name );
-    console.log('item', item)
     if (!item) {
         return false;
     }
 
-    console.log(item.values)
     const value = item.values.find( v => v.name === status);
-    console.log('value', value)
     if (!value) {
         return false;
     }
 
     const {color} = value;
 
+    $(`.status_item[id=${name}]`).attr('title', `${name}: ${status}`);
+    $(`.status_item[id=${name}] .status_name`).text(`${item.text}: ${value.text}`);
     $(`.status_item[id=${name}] .status_icon`).css('background-color', `rgb(${color[0]}, ${color[1]}, ${color[2]})`);
 
 }
 
-const create_status_item = ({name, values, status}) => {
+const create_status_item = ({name, text, values, status}) => {
     $('.status').append(
-    `<div class="status_item" id="${name}">` +
+    `<div class="status_item" id="${name}" title="${text}: ${status}">` +
         '<div class="status_icon"></div>' +
-        `<div class="status_name">${name}</div>` +
+        `<div class="status_name"></div>` +
     '</div>');
 
     change_status_item(name, status);

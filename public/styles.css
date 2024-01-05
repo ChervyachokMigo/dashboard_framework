@@ -6,6 +6,7 @@ body {
 .status_item {
     display: flex;
     flex-direction: row;
+    width: fit-content;
 }
 
 .status_name {

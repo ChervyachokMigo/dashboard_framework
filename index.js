@@ -4,8 +4,8 @@ const { init_webserver } = require('./webserver');
 
 module.exports = {
     prepare: (list) => {
-        for (let {name, values, status} of list){
-            add_status_item(name, values, status);
+        for (let {name, text, values, status} of list){
+            add_status_item(name, text, values, status);
         }
     },
 
