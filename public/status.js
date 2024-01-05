@@ -1,42 +1,64 @@
-
-var connection = new WebSocket("ws://localhost:8888");
-
-$(document).ready(function(){
-    connection.send(JSON.stringify({action: "bot_restart"}));
-});
-
-connection.onopen = () => {
-    connection.onclose = (ev=>{
-        console.error('connection close');
-        console.log(ev);
-        location.reload();
-    });
-    
-    connection.onerror = (err=>{
-        console.error('connection error');
-        console.log(err);
-        location.reload();
-    });
-
-    connection.send(JSON.stringify({action: "connect"}));
-};
-
-connection.onmessage = (data) => {
-
-    if (!isJSON(data.data)) {
-        console.error('is not json');
+const isJSON = (str) => {
+    try {
+        JSON.parse(str.toString());
+    } catch (e) {
         return false;
     }
+    return true;
+}
 
-    var data_json = JSON.parse(data.data);
+let SOCKET = null;
+let SOCKET_PORT = null;
 
-};
+const socket_send = (action, request_data = null) => {
+    SOCKET.send(JSON.stringify({action, request_data}));
+}
 
-    function isJSON(str) {
-        try {
-            JSON.parse(str.toString());
-        } catch (e) {
+const socket_response = ({action, response_data}) => {
+    switch (action){
+        case 'connected':
+            console.log(response_data);
+            break;
+        default:
+            console.error('unknown action');
+    }
+}
+
+$(document).ready(function(){
+    SOCKET_PORT = Number($('#SOCKET_PORT').attr('data'));
+
+    if (isNaN(SOCKET_PORT)){
+        throw new Error('unknown SOCKET PORT');
+    }
+
+    SOCKET = new WebSocket(`ws://localhost:${SOCKET_PORT}`);
+
+    SOCKET.onopen = () => {
+        SOCKET.onclose = (ev) => {
+            console.error('connection close');
+            console.log(ev);
+            location.reload();
+        };
+        
+        SOCKET.onerror = (err) => {
+            console.error('connection error');
+            console.log(err);
+            location.reload();
+        };
+    
+        socket_send('connected')
+
+    };
+    
+    SOCKET.onmessage = ({data}) => {
+
+        if (!isJSON(data)) {
+            console.error('response is not json');
             return false;
         }
-        return true;
-    }
+
+        socket_response(JSON.parse(data))
+
+    };
+});
+
