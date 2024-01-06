@@ -18,6 +18,30 @@ const socket_send = (action, request_data = null) => {
     SOCKET.send(JSON.stringify({action, request_data}));
 }
 
+
+const add_status_item = ({name, item_name, text, color}) => {
+    const i = _STATUS.list.findIndex( v => v.name === name);
+    if (i === -1) {
+        return false;
+    }
+
+    if (_STATUS.list[i].values.findIndex( v => v.name === item_name) === -1) {
+        _STATUS.list[i].values.push({name: item_name, text, color});
+        return true;
+    }
+
+    return false;
+}
+
+const add_status = ({name, text, values, status}) => {
+    if (_STATUS.list.findIndex( v => v.name === name) === -1) {
+        _STATUS.list.push({name, text, values, status});
+        return true;
+    }
+
+    return false;
+}
+
 const change_status = (name, status) => {
     const item = _STATUS.list.find( v => v.name === name );
     if (!item) {
@@ -89,25 +113,27 @@ const create_status_list = ({list}) => {
 }
 
 const socket_response = ({action, response_data}) => {
+    console.log(action, ':', response_data);
     switch (action){
         case 'connected':
-            console.log(action, ':', response_data);
             break;
         case 'get_status_list':
             create_status_list(response_data);
-            console.log(action, ':', response_data);
+            break;
+        case 'add_status':
+            add_status(response_data);
+            break;
+        case 'add_status_item':
+            add_status_item(response_data);
             break;
         case 'change_status':
             change_status(response_data.name, response_data.status);
-            console.log(action, ':', response_data);
             break;
         case 'change_text_item':
             change_text_item(response_data.name, response_data.item_name, response_data.text);
-            console.log(action, ':', response_data);
             break;
         case 'change_status_text':
             change_status_text(response_data.name, response_data.text);
-            console.log(action, ':', response_data);
             break;
         default:
             console.error('unknown action');

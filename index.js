@@ -1,13 +1,12 @@
 
 const { init_socket_server } = require('./socketserver');
-const { add_status_item } = require('./status');
-const { change_status, change_text_item, change_status_text } = require('./status_actions');
+const { change_status, change_text_item, change_status_text, add_status_item, add_status } = require('./status_actions');
 const { init_webserver } = require('./webserver');
 
 module.exports = {
     prepare: (list) => {
-        for (let {name, text, values, status} of list){
-            add_status_item(name, text, values, status);
+        for (let args of list){
+            add_status(args);
         }
     },
 
@@ -19,7 +18,10 @@ module.exports = {
         this.WEB_SERVER = await init_webserver(WEB_PORT, SOCKET_PORT);
     },
 
+    add_status_item,
     change_status,
     change_text_item,
     change_status_text,
+    add_status,
+
 }

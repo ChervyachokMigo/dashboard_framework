@@ -7,20 +7,28 @@ module.exports = {
         return _status.list;
     },
 
-    add_status_item: (name, text, values, status) => {
-        _status.list.push({name, text, values, status});
+    add_status: ({name, text, values, status}) => {
+        if (_status.list.findIndex( v => v.name === name) === -1) {
+            _status.list.push({name, text, values, status});
+            return true;
+        }
+
+        return false;
     },
 
-    get_status_index_by_name: (name) => {
-        return _status.list.findIndex( v => v.name === name);
-    },
+    add_status_item: ({name, item_name, text, color}) => {
+        const i = _status.list.findIndex( v => v.name === name);
 
-    get_status_item_index_by_item_name: (i, name) => {
-        return _status.list[i].values.findIndex( v => v.name === name)
-    },
+        if (i === -1) {
+            return false;
+        }
 
-    change_status_by_index: (i, new_status) => {
-        _status.list[i].status = new_status;
+        if (_status.list[i].values.findIndex( v => v.name === item_name) === -1) {
+            _status.list[i].values.push({name: item_name, text, color});
+            return true;
+        }
+
+        return false;
     },
 
     change_status_by_name: (name, status) => {

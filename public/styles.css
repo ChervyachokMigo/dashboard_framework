@@ -2,6 +2,10 @@ body {
     margin: auto;
     padding: 0;
 }
+.status {
+    display: flex;
+    flex-direction: column;
+}
 
 .status_item {
     display: flex;
