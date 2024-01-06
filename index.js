@@ -1,5 +1,7 @@
 
-const { init_socket_server, add_status_item, change_status_item, change_text_item, change_status_text } = require('./socketserver');
+const { init_socket_server } = require('./socketserver');
+const { add_status_item } = require('./status');
+const { change_status, change_text_item, change_status_text } = require('./status_actions');
 const { init_webserver } = require('./webserver');
 
 module.exports = {
@@ -17,7 +19,7 @@ module.exports = {
         this.WEB_SERVER = await init_webserver(WEB_PORT, SOCKET_PORT);
     },
 
-    change_status_item,
+    change_status,
     change_text_item,
     change_status_text,
 }

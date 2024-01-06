@@ -18,7 +18,7 @@ const socket_send = (action, request_data = null) => {
     SOCKET.send(JSON.stringify({action, request_data}));
 }
 
-const change_status_item = (name, status) => {
+const change_status = (name, status) => {
     const item = _STATUS.list.find( v => v.name === name );
     if (!item) {
         return false;
@@ -77,7 +77,7 @@ const create_status_item = ({name, text, values, status}) => {
         `<div class="status_name"></div>` +
     '</div>');
 
-    change_status_item(name, status);
+    change_status(name, status);
 }
 
 const create_status_list = ({list}) => {
@@ -97,8 +97,8 @@ const socket_response = ({action, response_data}) => {
             create_status_list(response_data);
             console.log(action, ':', response_data);
             break;
-        case 'change_status_item':
-            change_status_item(response_data.name, response_data.status);
+        case 'change_status':
+            change_status(response_data.name, response_data.status);
             console.log(action, ':', response_data);
             break;
         case 'change_text_item':
@@ -136,7 +136,8 @@ $(document).ready(function(){
             location.reload();
         };
     
-        socket_send('connected')
+        socket_send('connected');
+        socket_send('get_status_list');
 
     };
     

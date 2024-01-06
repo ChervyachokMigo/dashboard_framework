@@ -7,14 +7,23 @@ const main = async () => {
         {   
             name: 'running',
             text: 'Рабочая панель',
-            status: 'on',
+            status: null,
             values: [
                 {name: 'on', color: [0,255,0], text: 'вкл'}, 
                 {name: 'off', color: [255,0,0], text: 'выкл'},
                 {name: 'test', color: [0,0,50], text: 'test'},
                 {name: 'load', color: [150,150,0], text: 'Загрузка'}
             ]
-        }
+        },
+        {   
+            name: 'server',
+            text: 'Сервер',
+            status: null,
+            values: [
+                {name: '1', color: [0,255,0], text: 'true'}, 
+                {name: '0', color: [255,0,0], text: 'false'},
+            ]
+        },
     ]);
     
     await dashboard.run(3121, 3122);
@@ -25,7 +34,7 @@ const main = async () => {
     /*setInterval( ()=> {
         i = (i + 1) % vals.length;
 
-        dashboard.change_status_item('running', vals[i]);
+        dashboard.change_status('running', vals[i]);
         
         if (i === 0){
             dashboard.change_text_item('running', 'on', 'вкл 1');
@@ -39,8 +48,10 @@ const main = async () => {
         
     }, 2000)*/
 
-    dashboard.change_status_item('running', 'load');
+    dashboard.change_status('running', 'load');
     dashboard.change_status_text('running', 'Рабочая лошадь')
+
+    dashboard.change_status('server', '1');
 
     /*const load_interval = setInterval( ()=> {
         if (j < 100) {
