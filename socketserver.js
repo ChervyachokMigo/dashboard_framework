@@ -23,9 +23,6 @@ module.exports = {
     },
 
     change_status_item: (name, status) => {
-        if (clients.length === 0){
-            return false;
-        }
 
         console.log('change_status_item', {name, status} );
 
@@ -39,6 +36,10 @@ module.exports = {
             _status.list[i].status = status;
         }
 
+        if (clients.length === 0){
+            return false;
+        }
+
         clients.forEach ( v => {
             send(v, 'change_status_item', {name, status});
         });
@@ -46,9 +47,7 @@ module.exports = {
     },
 
     change_text_item: (name, item_name, text) => {
-        if (clients.length === 0){
-            return false;
-        }
+        
 
         console.log('change_text_item', {name, text} );
 
@@ -65,6 +64,11 @@ module.exports = {
 
         _status.list[i].values[v].text = text;
 
+
+        if (clients.length === 0){
+            return false;
+        }
+
         if (_status.list[i].status === item_name) {
             clients.forEach ( v => {
                 send(v, 'change_text_item', {name, item_name, text});
@@ -73,9 +77,6 @@ module.exports = {
     },
 
     change_status_text: (name, text) => {
-        if (clients.length === 0){
-            return false;
-        }
 
         console.log('change_status_text', {name, text} );
 
@@ -87,6 +88,9 @@ module.exports = {
 
         _status.list[i].text = text;
 
+        if (clients.length === 0){
+            return false;
+        }
         clients.forEach ( v => {
             send(v, 'change_status_text', {name, text});
         });
