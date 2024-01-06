@@ -1,5 +1,6 @@
 const { clients_send } = require("./socketserver");
-const { change_status_by_name, change_status_text_by_name, change_status_item_text_by_name, compare_current_status, add_status_item, add_status } = require("./status");
+const _status = require("./status");
+const { inspect } = require('util');
 
 module.exports = {
 
@@ -7,7 +8,7 @@ module.exports = {
 
         console.log('change_status', {name, status} );
 
-        change_status_by_name(name, status);
+        _status.change_by_name(name, status);
 
         clients_send('change_status', {name, status});
 
@@ -17,9 +18,9 @@ module.exports = {
 
         console.log('change_text_item', {name, text} );
 
-        change_status_item_text_by_name (name, item_name, text);
+        _status.change_item_text_by_name (name, item_name, text);
         
-        if (compare_current_status(name, item_name)) {
+        if (_status.compare_current(name, item_name)) {
             clients_send('change_text_item', {name, item_name, text});
         }
 
@@ -29,7 +30,7 @@ module.exports = {
 
         console.log('change_status_text', {name, text} );
 
-        change_status_text_by_name(name, text);
+        _status.change_text_by_name(name, text);
 
         clients_send('change_status_text', {name, text});
 
@@ -46,7 +47,7 @@ module.exports = {
     add_status: (args) => {
         console.log('add_status', args );
 
-        add_status(args);
+        _status.add(args);
 
         clients_send('add_status', args);
     },
@@ -62,9 +63,17 @@ module.exports = {
     add_status_item: (args) => {
         console.log('add_status_item', args );
 
-        add_status_item(args);
+        _status.add_item(args);
 
         clients_send('add_status_item', args);
+    },
+
+    set_status: (list) => {
+        console.log('set_status', inspect(list, {showHidden: false, depth: null, colors: true}) );
+        for (let args of list){
+            _status.add(args);
+            clients_send('add_status', args);
+        }
     },
 
 }

@@ -3,11 +3,11 @@ const _status = {
 };
 
 module.exports = {
-    get_status_list: () => {
+    get_list: () => {
         return _status.list;
     },
 
-    add_status: ({name, text, values, status}) => {
+    add: ({name, text, values, status}) => {
         if (_status.list.findIndex( v => v.name === name) === -1) {
             _status.list.push({name, text, values, status});
             return true;
@@ -16,7 +16,7 @@ module.exports = {
         return false;
     },
 
-    add_status_item: ({name, item_name, text, color}) => {
+    add_item: ({name, item_name, text, color}) => {
         const i = _status.list.findIndex( v => v.name === name);
 
         if (i === -1) {
@@ -31,7 +31,7 @@ module.exports = {
         return false;
     },
 
-    change_status_by_name: (name, status) => {
+    change_by_name: (name, status) => {
         const i = _status.list.findIndex( v => v.name === name);
 
         if (i === -1) {
@@ -46,7 +46,7 @@ module.exports = {
         return false;
     },
 
-    change_status_text_by_name: (name, text) => {
+    change_text_by_name: (name, text) => {
         const i = _status.list.findIndex( v => v.name === name);
 
         if (i === -1) {
@@ -57,7 +57,7 @@ module.exports = {
         return true;
     },
 
-    change_status_item_text_by_name: (name, item_name, text) => {
+    change_item_text_by_name: (name, item_name, text) => {
         const i = _status.list.findIndex( v => v.name === name);
 
         if (i === -1) {
@@ -73,7 +73,7 @@ module.exports = {
         return true;
     },
 
-    compare_current_status: (name, item_name) => {
+    compare_current: (name, item_name) => {
         const i = _status.list.findIndex( v => v.name === name);
 
         if (i === -1) {

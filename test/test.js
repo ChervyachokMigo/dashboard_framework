@@ -1,11 +1,14 @@
 const dashboard = require('../index');
 
 const main = async () => {
-    dashboard.prepare([
+    
+    await dashboard.run(3121, 3122);
+
+    dashboard.set_status([
         {   
             name: 'running',
             text: 'Рабочая панель',
-            status: null,
+            status: 'off',
             values: [
                 {name: 'on', color: [0,255,0], text: 'вкл'}, 
                 {name: 'off', color: [255,0,0], text: 'выкл'},
@@ -16,18 +19,16 @@ const main = async () => {
         {   
             name: 'server',
             text: 'Сервер',
-            status: null,
+            status: '0',
             values: [
                 {name: '1', color: [0,255,0], text: 'true'}, 
                 {name: '0', color: [255,0,0], text: 'false'},
             ]
         },
     ]);
-    
-    await dashboard.run(3121, 3122);
 
 
-    dashboard.change_status('running', 'load');
+    /*dashboard.change_status('running', 'load');
     dashboard.change_status_text('running', 'Рабочая лошадь')
 
     dashboard.change_status('server', '1');
@@ -48,6 +49,8 @@ const main = async () => {
     });
 
     dashboard.change_status('welcome', 'second');
+
+    dashboard.change_status('running', 'off');*/
 
 
 

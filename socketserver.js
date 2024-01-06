@@ -2,7 +2,7 @@
 
 const WebSocket = require('ws');
 const { isJSON } = require('./tools');
-const { get_status_list } = require('./status');
+const { get_list } = require('./status');
 
 
 let clients = [];
@@ -45,7 +45,7 @@ module.exports = {
                             response_data = 'connection success';
                             break;
                         case 'get_status_list':
-                            response_data = { list: get_status_list() };
+                            response_data = { list: get_list() };
                             break;
                         default:
                             console.log('unknown action');
