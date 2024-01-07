@@ -1,48 +1,54 @@
+const { inspect } = require('util');
+
 const { clients_send } = require("./socketserver");
 const _status = require("./status");
-const { inspect } = require('util');
 
 module.exports = {
 
-    change_status: (name, status) => {
+    /**
+     * @param {*} name "status name"
+     * @param {*} status "new status from list" 
+     */
+    change_status: (args) => {
+        console.log('change_status', args );
 
-        console.log('change_status', {name, status} );
+        _status.change_by_name(args);
 
-        _status.change_by_name(name, status);
-
-        clients_send('change_status', {name, status});
-
-    },
-
-    change_text_item: (name, item_name, text) => {
-
-        console.log('change_text_item', {name, text} );
-
-        _status.change_item_text_by_name (name, item_name, text);
-        
-        if (_status.compare_current(name, item_name)) {
-            clients_send('change_text_item', {name, item_name, text});
-        }
-
-    },
-
-    change_status_text: (name, text) => {
-
-        console.log('change_status_text', {name, text} );
-
-        _status.change_text_by_name(name, text);
-
-        clients_send('change_status_text', {name, text});
-
+        clients_send('change_status', args);
     },
 
     /**
-     * {name, text, values, status}
+     * @param {*} name "status name"
+     * @param {*} item_name "status item name"
+     * @param {*} text "new text for status item"
+     */
+    change_text_item: (args) => {
+        console.log('change_text_item', args );
+
+        _status.change_item_text_by_name (args);
+        
+        if (_status.compare_current(args)) {
+            clients_send('change_text_item', args);
+        }
+    },
+
+    /**
+     * @param {*} name "status name"
+     * @param {*} text "new text for status"
+     */
+    change_status_text: (args) => {
+        console.log('change_status_text', args);
+
+        _status.change_text_by_name(args);
+
+        clients_send('change_status_text', args);
+    },
+
+    /**
      * @param name "status name"
      * @param text "status text"
      * @param values status items Array [{name:"status name", item_name: "status item name", text: "status item text", color: [R, G, B]}]
      * @param status "current status name"
-     * 
      */
     add_status: (args) => {
         console.log('add_status', args );
@@ -53,12 +59,10 @@ module.exports = {
     },
 
     /**
-     * 
      * @param name "status name"
      * @param item_name "status item name"
      * @param text "status item text"
      * @param color [R, G, B]
-     * 
      */
     add_status_item: (args) => {
         console.log('add_status_item', args );
@@ -68,6 +72,9 @@ module.exports = {
         clients_send('add_status_item', args);
     },
 
+    /**
+     * @param {*} list "set new status list"
+     */
     set_status: (list) => {
         console.log('set_status', inspect(list, {showHidden: false, depth: null, colors: true}) );
         for (let args of list){

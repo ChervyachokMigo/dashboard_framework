@@ -28,7 +28,7 @@ const main = async () => {
     ]);
 
 
-    /*dashboard.change_status('running', 'load');
+    dashboard.change_status('running', 'load');
     dashboard.change_status_text('running', 'Рабочая лошадь')
 
     dashboard.change_status('server', '1');
@@ -50,7 +50,7 @@ const main = async () => {
 
     dashboard.change_status('welcome', 'second');
 
-    dashboard.change_status('running', 'off');*/
+    dashboard.change_status('running', 'off');
 
 
 

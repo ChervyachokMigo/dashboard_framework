@@ -31,7 +31,7 @@ module.exports = {
         return false;
     },
 
-    change_by_name: (name, status) => {
+    change_by_name: ({name, status}) => {
         const i = _status.list.findIndex( v => v.name === name);
 
         if (i === -1) {
@@ -46,7 +46,7 @@ module.exports = {
         return false;
     },
 
-    change_text_by_name: (name, text) => {
+    change_text_by_name: ({name, text}) => {
         const i = _status.list.findIndex( v => v.name === name);
 
         if (i === -1) {
@@ -57,7 +57,7 @@ module.exports = {
         return true;
     },
 
-    change_item_text_by_name: (name, item_name, text) => {
+    change_item_text_by_name: ({name, item_name, text}) => {
         const i = _status.list.findIndex( v => v.name === name);
 
         if (i === -1) {
@@ -73,7 +73,7 @@ module.exports = {
         return true;
     },
 
-    compare_current: (name, item_name) => {
+    compare_current: ({name, item_name}) => {
         const i = _status.list.findIndex( v => v.name === name);
 
         if (i === -1) {
