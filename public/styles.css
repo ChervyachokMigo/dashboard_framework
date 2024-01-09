@@ -24,3 +24,31 @@ body {
     padding: 0;
     border-radius: 50%;    
 }
+
+.feed {
+    display: flex;
+    flex-direction: row;
+}
+
+.feed_event {
+    border: 1px solid #a0a0a0;
+    border-radius: 21px;
+    width: 150px;
+    min-width: 150px;
+    height: fit-content;
+    padding: 12px;
+    margin: 8px;
+    text-align: center;
+    background: #ebebeb;
+    display: flex;
+    flex-direction: column;
+}
+
+.feed_event_title {
+    font-weight: bold;
+    font-size: large;
+}
+
+.feed_event_desc {
+    font-size: small;
+}
