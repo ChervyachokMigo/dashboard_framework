@@ -1,7 +1,7 @@
 
 
 const WebSocket = require('ws');
-const { isJSON } = require('../misc/tools');
+const { isJSON, log } = require('../misc/tools');
 const status = require('./data/status');
 const feed = require('./data/feed');
 const style = require('./data/style');
@@ -20,12 +20,12 @@ module.exports = {
             client.id = new Date().getTime();
             clients.push(client);
 
-            console.log('new connection');
+            log('new connection');
             
             client.on('error', console.error);
             
             client.on('close', ()=> {
-                console.log('connection closed');
+                log('connection closed');
                 for (let i in clients){
                     if (clients[i].id === client.id){
                         clients.splice(i, 1);
@@ -34,7 +34,7 @@ module.exports = {
             });
 
             client.on('message', async function message(data) {
-                console.log('received: ' + data);
+                log('received: ' + data);
 
                 if (isJSON(data)){
                     const {action, request_data} = JSON.parse(data);
@@ -55,7 +55,7 @@ module.exports = {
                             response_data = { list: style.get_list() };
                             break;
                         default:
-                            console.log('unknown action');
+                            log('unknown action');
                     }
                     send(client, action, response_data);
                 } else {

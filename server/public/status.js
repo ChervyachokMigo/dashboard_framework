@@ -243,7 +243,8 @@ const css_apply = ({selector, prop, value}) => {
 }
 
 const socket_response = ({action, response_data}) => {
-    console.log(action, ':', response_data);
+    //console.log(action, ':', response_data);
+
     const actions = [
         {name: 'connected',         F: null},
         {name: 'get_status_list',   F: create_status_list},

@@ -1,7 +1,10 @@
+
 const dashboard = require('../index');
 
+
 const main = async () => {
-    
+    dashboard.settings.set({debug: false});
+
     await dashboard.run(3121, 3122);
 
     dashboard.set_status([

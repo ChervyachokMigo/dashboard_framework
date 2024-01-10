@@ -4,6 +4,8 @@ const { init_socket_server } = require('./server/sockets');
 const { init_webserver } = require('./server/webs');
 
 module.exports = {
+    settings: {...require('./misc/settings.js')},
+    
     ...require('./actions/status'),
     ...require('./actions/feed'),
     ...require('./actions/style'),

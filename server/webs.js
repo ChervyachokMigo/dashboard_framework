@@ -2,6 +2,7 @@ const path = require('path');
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const { log } = require('../misc/tools');
 
 const WEBSERVER_PUBLIC_PATH = path.join(__dirname, 'public');
 
@@ -53,7 +54,7 @@ module.exports = {
             });
         
             WEB_SERVER.listen(WEB_PORT, ()=>{
-                console.log(`Webserver listening on\nhttp://localhost:${WEB_PORT}`);
+                log(`Webserver listening on\nhttp://localhost:${WEB_PORT}`);
                 res (true);
             });
         });
