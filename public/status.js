@@ -134,10 +134,18 @@ const feed_event = ({feedname, id, title, desc, url, icon, sound}) => {
 
 const append_event = (args) => {
     $('.feed').append(feed_event(args));
+
+    while ( Number($('.feed').children().length) > ($( window ).width() / 162  - 0.5)  ) {
+        $('.feed').children().last().remove();
+    }
 }
 
 const prepend_event = (args) => {
     $('.feed').prepend(feed_event(args));
+
+    while ( Number($('.feed').children().length) > ($( window ).width() / 162 - 0.5) ) {
+        $('.feed').children().last().remove();
+    }
 }
 
 const create_feed = ({feedname}) => {

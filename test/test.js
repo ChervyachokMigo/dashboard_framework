@@ -58,7 +58,7 @@ const main = async () => {
         
         dashboard.emit_event({feedname: 'main_feed', title: 'test', desc: 'ya lublu'})
         i++
-    }, 500)
+    }, 1000)
 }
 
 main();
