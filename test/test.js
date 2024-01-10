@@ -56,7 +56,11 @@ const main = async () => {
     let i = 1;
     setInterval( () => {
         
-        dashboard.emit_event({feedname: 'main_feed', title: 'test', desc: 'ya lublu'})
+        dashboard.emit_event({feedname: 'main_feed', type: 'test', title: 'test', desc: 'ya lublu'});
+
+        dashboard.change_event_prop({feedname: 'main_feed', type: 'last', propname: 'url', value: `${i}`});
+
+
         i++
     }, 1000)
 }

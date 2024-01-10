@@ -14,4 +14,11 @@ module.exports = {
         const new_event = _feed.add_event(args);
         clients_send('emit_event', new_event);
     },
+
+    change_event_prop: (args) => {
+        console.log('change_event_prop', args);
+        _feed.change_event_prop(args);
+        clients_send('change_event_prop', args);
+    },
+
 }

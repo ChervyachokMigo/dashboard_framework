@@ -125,10 +125,19 @@ const create_feed_list = ({list}) => {
     }
 }
 
-const feed_event = ({feedname, id, title, desc, url, icon, sound}) => {
-    return `<div class="feed_event" id="${id}">` +
+const feed_event = ({feedname, id, type, title, desc, url, icon, sound}) => {
+    let url_begin = '';
+    let url_end = '';
+    if (url) {
+        url_begin = `<a href="${url}">`;
+        url_end = '</a>';
+    }
+
+    return `<div class="feed_event" type="${type}" id="${id}">` +
+        url_begin + 
         `<div class="feed_event_title">${title}</div>` +
         `<div class="feed_event_desc">${desc}</div>` +
+        url_end +
     '</div>'
 }
 
@@ -155,11 +164,51 @@ const create_feed = ({feedname}) => {
     return _FEED.list.findIndex( v => v.feedname === feedname);
 }
 
-const emit_event = ({feedname, id, date, title, desc, url, icon, sound}) => {
-    let i = create_feed({feedname});
+const emit_event = (args) => {
+    let i = create_feed(args);
     _FEED.list[i].event_idx = _FEED.list[i].event_idx + 1;
-    _FEED.list[i].stack.unshift({id, title, date, desc, url, icon, sound});
-    prepend_event({id, title, desc});
+    _FEED.list[i].stack.unshift(args);
+    prepend_event(args);
+}
+
+const change_event_prop = ({feedname, type, propname, value}) => {
+    const i = _FEED.list.findIndex( v => v.feedname === feedname);
+
+    if (i === -1) {
+        return false;
+    }
+
+    if (_FEED.list[i].stack.length > 0){
+        if (type === 'last' || type === 'first'){
+            _FEED.list[i].stack[0][propname] = value;
+        } else {
+            const idxs = _FEED.list[i].stack.map( (val, idx) => {
+                if (val.type === type){
+                    return idx; 
+                }
+            });
+            for (let x of idxs) {
+                _FEED.list[i].stack[x][propname] = value;
+            }
+        }
+    }
+
+    let feed_event_selector = `.feed_event[type=${type}]`;
+    if (type === 'last' || type === 'first'){
+        feed_event_selector = `.feed_event:first`;
+    }
+
+    switch (propname) {
+        case 'title':
+            $(`${feed_event_selector} .feed_event_title`).text(value);
+            break;
+        case 'desc':
+            $(`${feed_event_selector} .feed_event_desc`).text(value);
+            break;
+        default:
+            console.error('unknown event prop')
+    }
+
 }
 
 const socket_response = ({action, response_data}) => {
@@ -194,6 +243,9 @@ const socket_response = ({action, response_data}) => {
         case 'emit_event':
             emit_event(response_data);
             break;
+        case 'change_event_prop':
+            change_event_prop(response_data);
+            break;    
         default:
             console.error('unknown action');
     }
