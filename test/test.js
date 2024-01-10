@@ -54,15 +54,19 @@ const main = async () => {
 
     dashboard.create_feed({feedname: 'main_feed'});
     let i = 1;
+
+    dashboard.css_apply({selector: '.feed', prop: 'background-color', value: '#ccc'});
+
     setInterval( () => {
         
         dashboard.emit_event({feedname: 'main_feed', type: 'test', title: 'test', desc: 'ya lublu'});
 
+
         dashboard.change_event_prop({feedname: 'main_feed', type: 'last', propname: 'url', value: `${i}`});
-
-
+        dashboard.change_event_prop({feedname: 'main_feed', type: 'last', propname: 'url', value: ``});
         i++
-    }, 1000)
+    }, 2000);
+
 }
 
 main();

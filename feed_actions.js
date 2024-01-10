@@ -20,5 +20,4 @@ module.exports = {
         _feed.change_event_prop(args);
         clients_send('change_event_prop', args);
     },
-
 }

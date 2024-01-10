@@ -4,6 +4,7 @@ const WebSocket = require('ws');
 const { isJSON } = require('./tools');
 const status = require('./status');
 const feed = require('./feed');
+const style = require('./style');
 
 let clients = [];
 
@@ -49,6 +50,9 @@ module.exports = {
                             break;
                         case 'get_feed_list':
                             response_data = { list: feed.get_list() };
+                            break;
+                        case 'css_load':
+                            response_data = { list: style.get_list() };
                             break;
                         default:
                             console.log('unknown action');

@@ -46,7 +46,7 @@ const add_status = ({name, text, values, status}) => {
     return false;
 }
 
-const change_status = (name, status) => {
+const change_status = ({name, status}) => {
     const item = _STATUS.list.find( v => v.name === name );
     if (!item) {
         return false;
@@ -64,7 +64,7 @@ const change_status = (name, status) => {
     $(`.status_item[id=${name}] .status_icon`).css('background-color', `rgb(${color[0]}, ${color[1]}, ${color[2]})`);
 }
 
-const change_text_item = (name, item_name, text) => {
+const change_text_item = ({name, item_name, text}) => {
     const i = _STATUS.list.findIndex( v => v.name === name );
     if (i === -1) {
         return false;
@@ -82,7 +82,7 @@ const change_text_item = (name, item_name, text) => {
     }
 }
 
-const change_status_text = (name, text) => {
+const change_status_text = ({name, text}) => {
     const i = _STATUS.list.findIndex( v => v.name === name );
     if (i === -1) {
         return false;
@@ -126,8 +126,10 @@ const create_feed_list = ({list}) => {
 }
 
 const feed_event = ({feedname, id, type, title, desc, url, icon, sound}) => {
+
     let url_begin = '';
     let url_end = '';
+
     if (url) {
         url_begin = `<a href="${url}">`;
         url_end = '</a>';
@@ -205,50 +207,69 @@ const change_event_prop = ({feedname, type, propname, value}) => {
         case 'desc':
             $(`${feed_event_selector} .feed_event_desc`).text(value);
             break;
+        case 'url':
+            if (value){
+                if ($(`${feed_event_selector} a`).length === 0) {
+                    //нет ссылки
+                    let url_begin = `<a href="${value}">`;
+                    let url_end = '</a>';
+                    $(`${feed_event_selector}`).html(
+                        url_begin +
+                        $(`${feed_event_selector}`).html() +
+                        url_end
+                    );
+                } else {
+                    //изменить ссылку
+                    $(`${feed_event_selector} a`).attr('href', value);
+                }
+            } else {
+                //удалить ссылку
+                $(`${feed_event_selector}`).html($(`${feed_event_selector} a`).html());
+            }
+            break;
         default:
             console.error('unknown event prop')
     }
+}
 
+const css_load = ({list}) => {
+    for (let args of list) {
+        css_apply(args);
+    }
+}
+
+const css_apply = ({selector, prop, value}) => {
+    $(selector).css(prop, value);
 }
 
 const socket_response = ({action, response_data}) => {
     console.log(action, ':', response_data);
-    switch (action){
-        case 'connected':
-            break;
-        case 'get_status_list':
-            create_status_list(response_data);
-            break;
-        case 'get_feed_list':
-            create_feed_list(response_data);
-            break;
-        case 'add_status':
-            add_status(response_data);
-            break;
-        case 'add_status_item':
-            add_status_item(response_data);
-            break;
-        case 'change_status':
-            change_status(response_data.name, response_data.status);
-            break;
-        case 'change_text_item':
-            change_text_item(response_data.name, response_data.item_name, response_data.text);
-            break;
-        case 'change_status_text':
-            change_status_text(response_data.name, response_data.text);
-            break;
-        case 'create_feed':
-            create_feed(response_data);
-            break;
-        case 'emit_event':
-            emit_event(response_data);
-            break;
-        case 'change_event_prop':
-            change_event_prop(response_data);
-            break;    
-        default:
-            console.error('unknown action');
+    const actions = [
+        {name: 'connected',         F: null},
+        {name: 'get_status_list',   F: create_status_list},
+        {name: 'get_feed_list',     F: create_feed_list},
+        {name: 'add_status',        F: add_status},
+        {name: 'add_status_item',   F: add_status_item},
+        {name: 'change_status',     F: change_status},
+        {name: 'change_text_item',  F: change_text_item},
+        {name: 'change_status_text',F: change_status_text},
+        {name: 'create_feed',       F: create_feed},
+        {name: 'emit_event',        F: emit_event},
+        {name: 'change_event_prop', F: change_event_prop},
+        {name: 'css_load',          F: css_load},
+        {name: 'css_apply',         F: css_apply},
+    ];
+
+    let a = actions.find( v => v.name === action);
+
+    if (a) {
+        if (a.F) {
+            a.F(response_data);
+        }
+    } else {
+        console.error('unknown action');
     }
+
 }
 
 $(document).ready(function(){
@@ -276,6 +297,7 @@ $(document).ready(function(){
         socket_send('connected');
         socket_send('get_status_list');
         socket_send('get_feed_list');
+        socket_send('css_load');
     };
     
     SOCKET.onmessage = ({data}) => {
@@ -285,8 +307,9 @@ $(document).ready(function(){
             return false;
         }
 
-        socket_response(JSON.parse(data))
+        socket_response(JSON.parse(data));
 
     };
+
 });
 

@@ -6,6 +6,7 @@ const { init_webserver } = require('./webserver');
 module.exports = {
     ...require('./status_actions'),
     ...require('./feed_actions'),
+    ...require('./style_actions'),
 
     run: async (WEB_PORT, SOCKET_PORT) => {
         this.SOCKET_PORT = SOCKET_PORT;
