@@ -1,10 +1,10 @@
 
 
 const WebSocket = require('ws');
-const { isJSON } = require('./tools');
-const status = require('./status');
-const feed = require('./feed');
-const style = require('./style');
+const { isJSON } = require('../misc/tools');
+const status = require('./data/status');
+const feed = require('./data/feed');
+const style = require('./data/style');
 
 let clients = [];
 

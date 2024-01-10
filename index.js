@@ -1,12 +1,12 @@
 
-const { init_socket_server } = require('./socketserver');
+const { init_socket_server } = require('./server/sockets');
 
-const { init_webserver } = require('./webserver');
+const { init_webserver } = require('./server/webs');
 
 module.exports = {
-    ...require('./status_actions'),
-    ...require('./feed_actions'),
-    ...require('./style_actions'),
+    ...require('./actions/status'),
+    ...require('./actions/feed'),
+    ...require('./actions/style'),
 
     run: async (WEB_PORT, SOCKET_PORT) => {
         this.SOCKET_PORT = SOCKET_PORT;

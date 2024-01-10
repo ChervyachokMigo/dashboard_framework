@@ -1,6 +1,6 @@
 
-const { clients_send } = require("./socketserver");
-const _feed = require("./feed");
+const { clients_send } = require("../server/sockets");
+const _feed = require("../server/data/feed");
 
 module.exports = {
     create_feed: (args) => {

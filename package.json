@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "start http://localhost:3121 && node test/test.js "
+    "start": "start http://localhost:3121 && node misc/test.js"
   },
   "keywords": [],
   "author": "",

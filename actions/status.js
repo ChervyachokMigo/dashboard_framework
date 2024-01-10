@@ -1,7 +1,7 @@
 const { inspect } = require('util');
 
-const { clients_send } = require("./socketserver");
-const _status = require("./status");
+const { clients_send } = require("../server/sockets");
+const _status = require("../server/data/status");
 
 module.exports = {
 

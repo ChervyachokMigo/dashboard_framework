@@ -9,7 +9,7 @@ const create_feed = ({feedname}) => {
     return _feed.list.findIndex( v => v.feedname === feedname);
 }
 
-//limit animations styles direction
+//animations direction
 module.exports = {
     get_list: () => {
         return _feed.list;

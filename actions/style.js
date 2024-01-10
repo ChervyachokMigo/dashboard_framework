@@ -1,5 +1,5 @@
-const { clients_send } = require("./socketserver");
-const _style = require("./style");
+const { clients_send } = require("../server/sockets");
+const _style = require("../server/data/style");
 
 module.exports = {
     css_apply: (args) => {
