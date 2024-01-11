@@ -3,9 +3,15 @@ const _style = require("../server/data/style");
 const { log } = require("../misc/tools");
 
 module.exports = {
-    css_apply: (args) => {
+    /**
+     * 
+     * @param selector element selector for jQuerry
+     * @param prop css parametre name
+     * @param value value of parametre
+     */
+    css_apply: async (args) => {
         log('css_apply', args);
         _style.add(args);
-        clients_send('css_apply', args);
+        await clients_send('css_apply', args);
     },
 }
