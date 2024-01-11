@@ -1,3 +1,5 @@
+// @ts-ignore
+
 const { inspect } = require('util');
 
 const { clients_send } = require("../server/sockets");

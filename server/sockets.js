@@ -1,4 +1,4 @@
-
+// @ts-ignore
 
 const WebSocket = require('ws');
 const { isJSON, log } = require('../misc/tools');

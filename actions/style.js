@@ -1,3 +1,5 @@
+// @ts-ignore
+
 const { clients_send } = require("../server/sockets");
 const _style = require("../server/data/style");
 const { log } = require("../misc/tools");
