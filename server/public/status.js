@@ -57,11 +57,12 @@ const change_status = ({name, status}) => {
         return false;
     }
 
+    console.log(name, status, item, value)
     const {color} = value;
 
-    $(`.status_item[id=${name}]`).attr('title', `${name}: ${status}`);
-    $(`.status_item[id=${name}] .status_name`).text(`${item.text}: ${value.text}`);
-    $(`.status_item[id=${name}] .status_icon`).css('background-color', `rgb(${color[0]}, ${color[1]}, ${color[2]})`);
+    $(`.status_item[id="${name}"]`).attr('title', `${name}: ${status}`);
+    $(`.status_item[id="${name}"]>.status_name`).text(`${item.text}: ${value.text}`);
+    $(`.status_item[id="${name}"]>.status_icon`).css('background-color', `rgb(${color[0]}, ${color[1]}, ${color[2]})`);
 }
 
 const change_text_item = ({name, item_name, text}) => {
@@ -78,7 +79,7 @@ const change_text_item = ({name, item_name, text}) => {
     _STATUS.list[i].values[v].text = text;
 
     if (_STATUS.list[i].status === item_name){
-        $(`.status_item[id=${name}] .status_name`).text(`${_STATUS.list[i].text}: ${_STATUS.list[i].values[v].text}`);
+        $(`.status_item[id=${name}]>.status_name`).text(`${_STATUS.list[i].text}: ${_STATUS.list[i].values[v].text}`);
     }
 }
 
@@ -95,7 +96,7 @@ const change_status_text = ({name, text}) => {
 
     _STATUS.list[i].text = text;
     
-    $(`.status_item[id=${name}] .status_name`).text(`${_STATUS.list[i].text}: ${_STATUS.list[i].values[v].text}`);
+    $(`.status_item[id=${name}]>.status_name`).text(`${_STATUS.list[i].text}: ${_STATUS.list[i].values[v].text}`);
 }
 
 const create_status_item = ({name, text, values, status}) => {
@@ -105,7 +106,7 @@ const create_status_item = ({name, text, values, status}) => {
         `<div class="status_name"></div>` +
     '</div>');
 
-    change_status(name, status);
+    change_status({name, status});
 }
 
 const create_status_list = ({list}) => {
@@ -202,10 +203,10 @@ const change_event_prop = ({feedname, type, propname, value}) => {
 
     switch (propname) {
         case 'title':
-            $(`${feed_event_selector} .feed_event_title`).text(value);
+            $(`${feed_event_selector}>.feed_event_title`).text(value);
             break;
         case 'desc':
-            $(`${feed_event_selector} .feed_event_desc`).text(value);
+            $(`${feed_event_selector}>.feed_event_desc`).text(value);
             break;
         case 'url':
             if (value){
