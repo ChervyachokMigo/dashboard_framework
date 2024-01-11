@@ -11,11 +11,11 @@ const main = async () => {
         {   
             name: 'running',
             text: 'Рабочая панель',
-            status: 'off',
+            status: 'test',
             values: [
                 {name: 'on', color: [0,255,0], text: 'вкл'}, 
-                {name: 'off', color: [255,0,0], text: 'выкл'},
-                {name: 'test', color: [0,0,50], text: 'test'},
+                {name: 'off', color: [0,0,0], text: 'выкл'},
+                {name: 'test', color: [0,0,150], text: 'test'},
                 {name: 'load', color: [150,150,0], text: 'Загрузка'}
             ]
         },
@@ -25,7 +25,7 @@ const main = async () => {
             status: '0',
             values: [
                 {name: '1', color: [0,255,0], text: 'true'}, 
-                {name: '0', color: [255,0,0], text: 'false'},
+                {name: '0', color: [0,0,0], text: 'false'},
             ]
         },
     ]);
@@ -36,7 +36,7 @@ const main = async () => {
 
     dashboard.change_status({name: 'server', status: '1'});*/
 
-    dashboard.add_status_item({ name: 'running', item_name: 'error', color: [255,255,0],  text: 'Ошибка!'});
+    /*dashboard.add_status_item({ name: 'running', item_name: 'error', color: [255,255,0],  text: 'Ошибка!'});
     dashboard.change_status({name: 'running', status: 'error'});
     dashboard.change_text_item({name: 'running', item_name: 'error', text: 'Измененная ошибка'});
     //dashboard.change_status({name: 'running', status: 'on'});
