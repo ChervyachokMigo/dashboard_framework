@@ -1,3 +1,4 @@
+// @ts-ignore
 
 const { init_socket_server } = require('./server/sockets');
 
