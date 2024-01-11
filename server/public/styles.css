@@ -5,6 +5,8 @@ body {
 .status {
     display: flex;
     flex-direction: column;
+    width: fit-content;
+    font-family: monospace;
 }
 
 .status_item {
