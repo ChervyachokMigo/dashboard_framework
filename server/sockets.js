@@ -1,4 +1,4 @@
-// @ts-ignore
+
 
 const WebSocket = require('ws');
 const { isJSON, log } = require('../misc/tools');
@@ -8,8 +8,8 @@ const style = require('./data/style');
 
 let clients = [];
 
-const send = (client, action, response_data) => {
-    client.send(JSON.stringify({action, response_data}) );
+const send = async (client, action, response_data) => {
+    await client.send(JSON.stringify({action, response_data}) );
 }
 
 module.exports = {
@@ -57,7 +57,7 @@ module.exports = {
                         default:
                             log('unknown action');
                     }
-                    send(client, action, response_data);
+                    await send(client, action, response_data);
                 } else {
                     console.error('"data" is not in JSON format!');
                 }
@@ -68,14 +68,14 @@ module.exports = {
         return SOCKET_SERVER;
     },
 
-    clients_send: (action, data) => {
+    clients_send: async (action, data) => {
         if (clients.length === 0){
             return false;
         }
     
-        clients.forEach ( v => {
-            send(v, action, data);
-        });
+        for (let c of clients) {
+            await send(c, action, data);
+        };
     },
 
 }

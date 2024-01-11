@@ -47,17 +47,17 @@ const add_status = ({name, text, values, status}) => {
 }
 
 const change_status = ({name, status}) => {
-    let item = _STATUS.list.find( v => v.name === name );
+    const item = _STATUS.list.find( v => v.name === name );
     if (!item) {
         return false;
     }
 
-    let value = item.values.find( v => v.name === status);
+    const value = item.values.find( v => v.name === status);
     if (!value) {
         return false;
     }
 
-    let {color} = value;
+    const {color} = value;
 
     $(`.status_item[id=${name}]`).attr('title', `${name}: ${status}`);
     $(`.status_item[id=${name}] .status_name`).text(`${item.text}: ${value.text}`);
@@ -105,7 +105,7 @@ const create_status_item = ({name, text, values, status}) => {
         `<div class="status_name"></div>` +
     '</div>');
 
-    change_status({name, status});
+    change_status(name, status);
 }
 
 const create_status_list = ({list}) => {
@@ -243,7 +243,7 @@ const css_apply = ({selector, prop, value}) => {
 }
 
 const socket_response = ({action, response_data}) => {
-    //console.log(action, ':', response_data);
+    console.log(action, ':', response_data);
 
     const actions = [
         {name: 'connected',         F: null},

@@ -1,4 +1,3 @@
-// @ts-ignore
 
 const { clients_send } = require("../server/sockets");
 const _feed = require("../server/data/feed");

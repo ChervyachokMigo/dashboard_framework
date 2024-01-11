@@ -1,5 +1,3 @@
-// @ts-ignore
-
 let _settings = {};
 
 module.exports = {

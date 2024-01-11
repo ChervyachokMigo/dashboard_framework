@@ -4,7 +4,7 @@ const { init_socket_server } = require('./server/sockets');
 
 const { init_webserver } = require('./server/webs');
 
-const dashboard = {
+module.exports = {
     settings: {...require('./misc/settings.js')},
     
     ...require('./actions/status'),
@@ -20,5 +20,3 @@ const dashboard = {
     },
 
 }
-
-export default dashboard;
