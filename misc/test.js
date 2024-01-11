@@ -3,7 +3,7 @@ const dashboard = require('../index');
 
 
 const main = async () => {
-    dashboard.settings.set({debug: false});
+    dashboard.settings.set({debug: true});
 
     await dashboard.run(3121, 3122);
 
@@ -31,16 +31,16 @@ const main = async () => {
     ]);
 
 
-    /*dashboard.change_status('running', 'load');
-    dashboard.change_status_text('running', 'Рабочая лошадь')
+    /*dashboard.change_status({name: 'running', status: 'load'});
+    dashboard.change_status_text({name: 'running', text: 'Рабочая лошадь'})
 
-    dashboard.change_status('server', '1');
+    dashboard.change_status({name: 'server', status: '1'});*/
 
     dashboard.add_status_item({ name: 'running', item_name: 'error', color: [255,255,0],  text: 'Ошибка!'});
-    dashboard.change_status('running', 'error');
-    dashboard.change_text_item('running', 'error', 'Измененная ошибка');
-    dashboard.change_status('running', 'on');
-
+    dashboard.change_status({name: 'running', status: 'error'});
+    dashboard.change_text_item({name: 'running', item_name: 'error', text: 'Измененная ошибка'});
+    //dashboard.change_status({name: 'running', status: 'on'});
+/*
     dashboard.add_status({   
         name: 'welcome',
         text: 'добро пожаловать',
@@ -53,9 +53,9 @@ const main = async () => {
 
     dashboard.change_status('welcome', 'second');
 
-    dashboard.change_status('running', 'off');*/
+    dashboard.change_status('running', 'off');
 
-    dashboard.create_feed({feedname: 'main_feed'});
+    /*dashboard.create_feed({feedname: 'main_feed'});
     let i = 1;
 
     dashboard.css_apply({selector: '.feed', prop: 'background-color', value: '#ccc'});
@@ -69,7 +69,7 @@ const main = async () => {
         dashboard.change_event_prop({feedname: 'main_feed', type: 'last', propname: 'url', value: ``});
         i++
     }, 2000);
-
+*/
 }
 
 main();

@@ -105,7 +105,7 @@ const create_status_item = ({name, text, values, status}) => {
         `<div class="status_name"></div>` +
     '</div>');
 
-    change_status(name, status);
+    change_status({name, text, values, status});
 }
 
 const create_status_list = ({list}) => {
