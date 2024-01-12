@@ -6,8 +6,10 @@ body {
 
 .middle {
     background-color: rgba(255,255,255,0.1);
-    text-stroke: 1px #FFFFFF;
-    -webkit-text-stroke: 1px #FFFFFF;
+    font-weight: bolder;
+    font-size: larger;
+    color: white;
+    text-shadow: -1px -1px 0 #000, 0 -1px 0 #000, 1px -1px 0 #000, 1px 0 0 #000, 1px 1px 0 #000, 0 1px 0 #000, -1px 1px 0 #000, -1px 0 0 #000;
 }
 
 .status {
