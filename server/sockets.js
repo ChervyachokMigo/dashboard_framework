@@ -16,7 +16,7 @@ module.exports = {
     init_socket_server: (SOCKET_PORT) => {
         let SOCKET_SERVER = new WebSocket.WebSocketServer({ port: SOCKET_PORT });
 
-        SOCKET_SERVER.on('connection', function connection(client) {
+        SOCKET_SERVER.on('connection',  (client) => {
             client.id = new Date().getTime();
             clients.push(client);
 
@@ -24,7 +24,7 @@ module.exports = {
             
             client.on('error', console.error);
             
-            client.on('close', ()=> {
+            client.on('close', () => {
                 log('connection closed');
                 for (let i in clients){
                     if (clients[i].id === client.id){
@@ -33,7 +33,7 @@ module.exports = {
                 }
             });
 
-            client.on('message', async function message(data) {
+            client.on('message', async (data) => {
                 log('received: ' + data);
 
                 if (isJSON(data)){

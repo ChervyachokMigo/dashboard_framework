@@ -1,3 +1,5 @@
+const _DEBUG = true;
+
 const isJSON = (str) => {
     try {
         JSON.parse(str.toString());
@@ -57,7 +59,6 @@ const change_status = ({name, status}) => {
         return false;
     }
 
-    console.log(name, status, item, value)
     const {color} = value;
 
     $(`.status_item[id="${name}"]`).attr('title', `${name}: ${status}`);
@@ -244,7 +245,9 @@ const css_apply = ({selector, prop, value}) => {
 }
 
 const socket_response = ({action, response_data}) => {
-    console.log(action, ':', response_data);
+    if (_DEBUG){
+        console.log(action, ':', response_data);
+    }
 
     const actions = [
         {name: 'connected',         F: null},
