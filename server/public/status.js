@@ -266,6 +266,10 @@ const css_apply = ({selector, prop, value}) => {
     }
 }
 
+const change_element_text = ({selector, text}) => {
+    $(selector).text(text);
+}
+
 const socket_response = ({action, response_data}) => {
     if (_DEBUG){
         console.log(action, ':', response_data);
@@ -285,6 +289,7 @@ const socket_response = ({action, response_data}) => {
         {name: 'change_event_prop', F: change_event_prop},
         {name: 'css_load',          F: css_load},
         {name: 'css_apply',         F: css_apply},
+        {name: 'change_element_text',F: change_element_text},
     ];
 
     let a = actions.find( v => v.name === action);

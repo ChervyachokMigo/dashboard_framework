@@ -20,7 +20,6 @@ const HTMLMainBody = (SOCKET_PORT) => {
 
     const html_body = '<body>' +
         `<div hidden id="SOCKET_PORT" data="${SOCKET_PORT}"></div>` +
-        '<header><h1></h1></header>' +
         '<div class="middle">' +
             '<div class="status"></div>' +
         '</div>' +
