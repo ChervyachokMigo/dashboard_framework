@@ -240,8 +240,26 @@ const css_load = ({list}) => {
     }
 }
 
+function load(src) {
+    return new Promise((resolve, reject) => {
+        const image = new Image();
+        image.addEventListener('load', resolve);
+        image.addEventListener('error', reject);
+        image.src = src;
+    });
+}
+
 const css_apply = ({selector, prop, value}) => {
-    $(selector).css(prop, value);
+    if (selector === 'body' && prop === 'background-image'){
+        load(value.replace('url(', '').replace(')','')).then(() => {
+            $(selector).fadeOut(500, () => {
+                $(selector).css(prop, value);
+                $(selector).fadeIn(500);
+            });
+        });
+    } else {
+        $(selector).css(prop, value);
+    }
 }
 
 const socket_response = ({action, response_data}) => {

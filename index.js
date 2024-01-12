@@ -1,7 +1,6 @@
 // @ts-ignore
 
 const { init_socket_server } = require('./server/sockets');
-
 const { init_webserver } = require('./server/webs');
 
 module.exports = {

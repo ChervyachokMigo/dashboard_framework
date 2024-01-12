@@ -2,6 +2,8 @@ body {
     margin: auto;
     padding: 0;
     background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
 }
 
 .middle {
