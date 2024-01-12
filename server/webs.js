@@ -23,6 +23,8 @@ const HTMLMainBody = (SOCKET_PORT) => {
         '<header><h1></h1></header>' +
         '<div class="middle">' +
             '<div class="status"></div>' +
+        '</div>' +
+        '<div class="bottom">' +
             '<div class="feed"></div>' +
         '</div>' +
     '</body>';

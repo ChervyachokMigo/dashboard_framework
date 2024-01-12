@@ -240,7 +240,7 @@ const css_load = ({list}) => {
     }
 }
 
-function load(src) {
+function load_image(src) {
     return new Promise((resolve, reject) => {
         const image = new Image();
         image.addEventListener('load', resolve);
@@ -249,14 +249,18 @@ function load(src) {
     });
 }
 
-const css_apply = ({selector, prop, value}) => {
-    if (selector === 'body' && prop === 'background-image'){
-        load(value.replace('url(', '').replace(')','')).then(() => {
-            $(selector).fadeOut(500, () => {
-                $(selector).css(prop, value);
-                $(selector).fadeIn(500);
-            });
+const change_background_image = ({selector, prop, value})=>{
+    load_image(value.replace('url(', '').replace(')','')).then(() => {
+        $(selector).fadeOut(500, () => {
+            $(selector).css(prop, value);
+            $(selector).fadeIn(500);
         });
+    });
+}
+
+const css_apply = ({selector, prop, value}) => {
+    if (prop === 'background-image'){
+        change_background_image({selector, prop, value});
     } else {
         $(selector).css(prop, value);
     }
@@ -296,6 +300,7 @@ const socket_response = ({action, response_data}) => {
 }
 
 $(document).ready(function(){
+
     SOCKET_PORT = Number($('#SOCKET_PORT').attr('data'));
 
     if (isNaN(SOCKET_PORT)){
