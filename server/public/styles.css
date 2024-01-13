@@ -51,9 +51,13 @@ a {
     border-radius: 50%;    
 }
 
+.bottom {
+    width: 100vw;
+}
+
 .feed {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     width: max-content;
     margin: auto;
 }
@@ -62,15 +66,14 @@ a {
     background: rgba(255,255,255,0.4);
     border: 1px solid rgb(97, 97, 97);
     border-radius: 50px;
-    min-width: 150px;
     height: fit-content;
     padding: 8px 20px;
     text-align: center;
     display: flex;
     flex-direction: column;
     width: auto;
-    max-width: fit-content;
-    margin: 0px auto 8px auto;
+    max-width: 500px;
+    margin: 0px 8px 8px auto;
 }
 
 .feed_event_title {
