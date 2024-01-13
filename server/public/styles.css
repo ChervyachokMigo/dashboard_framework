@@ -4,11 +4,15 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 0px 0px;
+    background-attachment: fixed;
 }
 
 a {
     text-decoration: none;
     cursor: pointer;
+    color: white;
+    text-shadow: -1px -1px 0 #000, 0 -1px 0 #000, 1px -1px 0 #000, 1px 0 0 #000, 1px 1px 0 #000, 0 1px 0 #000, -1px 1px 0 #000, -1px 0 0 #000;
+
 }
 
 .middle {
@@ -49,22 +53,24 @@ a {
 
 .feed {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    width: max-content;
+    margin: auto;
 }
 
 .feed_event {
+    background: rgba(255,255,255,0.4);
     border: 1px solid rgb(97, 97, 97);
     border-radius: 50px;
-    width: 150px;
     min-width: 150px;
-    max-width: 150px;
     height: fit-content;
-    padding: 12px;
-    margin: 8px;
+    padding: 8px 20px;
     text-align: center;
-    background: rgba(255,255,255,0.1);
     display: flex;
     flex-direction: column;
+    width: auto;
+    max-width: fit-content;
+    margin: 0px auto 8px auto;
 }
 
 .feed_event_title {
