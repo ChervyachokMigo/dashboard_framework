@@ -12,7 +12,10 @@ a {
     cursor: pointer;
     color: white;
     text-shadow: -1px -1px 0 #000, 0 -1px 0 #000, 1px -1px 0 #000, 1px 0 0 #000, 1px 1px 0 #000, 0 1px 0 #000, -1px 1px 0 #000, -1px 0 0 #000;
+}
 
+.feed_event:hover {
+    background: rgba(255,255,255,0.8);
 }
 
 .middle {
