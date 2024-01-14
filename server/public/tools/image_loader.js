@@ -1,4 +1,6 @@
-let _images = [];
+const _images = {
+    list: []
+};
 
 const load_image = async (src) => {
     return new Promise((resolve, reject) => {
@@ -10,7 +12,7 @@ const load_image = async (src) => {
 }
 
 const get_image = async (src) => {
-    let image = _images.find( v => v.src === src );
+    let image = _images.list.find( v => v.src === src );
     if (image) {
         return image.html;
     } else {
@@ -18,7 +20,7 @@ const get_image = async (src) => {
         if (loaded_image.error){
             return document.createElement('img');
         } else if (loaded_image.image) {
-            _images.push({src, html: loaded_image.image});
+            _images.list.push({src, html: loaded_image.image});
             return loaded_image.image;
         } else {
             console.error('get image error');

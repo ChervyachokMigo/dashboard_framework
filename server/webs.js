@@ -27,7 +27,7 @@ const HTMLMainBody = (SOCKET_PORT) => {
         '</div>' +
     '</body>';
 
-    const sctipt = '<script src="status.js"></script>';
+    const sctipt = '<script src="scripts_init.js"></script>';
 
     const html_end = '</html>';
 
