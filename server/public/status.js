@@ -177,19 +177,29 @@ const delete_outer_feed_elements = () => {
 }
 
 const add_event_to_page = (method, args) => {
-    switch (method) {
-        case 'append':
-            $('.feed').append(feed_event(args))
-                .ready(delete_outer_feed_elements);
-            break;
-        case 'prepend':
-            $('.feed').prepend(feed_event(args))
-                .ready(delete_outer_feed_elements);
-            break;
-        default:
-            console.error('add event error method', method);
+    const action = () => {
+        switch (method) {
+            case 'append':
+                $('.feed').append(feed_event(args))
+                    .ready(delete_outer_feed_elements);
+                break;
+            case 'prepend':
+                $('.feed').prepend(feed_event(args))
+                    .ready(delete_outer_feed_elements);
+                break;
+            default:
+                console.error('add event error method', method);
+        }
     }
-    
+
+    if (args.icon){
+        load_image(args.icon).then( () => {
+            action();
+        })
+    } else {
+        action();
+    }
+
 }
 
 const create_feed = ({feedname}) => {
@@ -275,7 +285,7 @@ function load_image(src) {
     return new Promise((resolve, reject) => {
         const image = new Image();
         image.addEventListener('load', resolve);
-        image.addEventListener('error', reject);
+        image.addEventListener('error', resolve);
         image.src = src;
     });
 }
