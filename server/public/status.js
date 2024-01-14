@@ -49,21 +49,29 @@ const add_status = ({name, text, values, status}) => {
 }
 
 const change_status = ({name, status}) => {
-    const item = _STATUS.list.find( v => v.name === name );
-    if (!item) {
+    const i = _STATUS.list.findIndex( v => v.name === name);
+
+    if (i === -1) {
         return false;
     }
 
-    const value = item.values.find( v => v.name === status);
-    if (!value) {
-        return false;
+    if (_STATUS.list[i].values.findIndex( v => v.name === status) > -1) {
+        _STATUS.list[i].status = status;
+        
+
+        const v = _STATUS.list[i].values.findIndex( v => v.name === status);
+        if (v === -1) {
+            return false;
+        }
+
+        _STATUS.list[i].status = status;
+
+        const {color} = _STATUS.list[i].values[v];
+
+        $(`.status_item[id="${name}"]`).attr('title', `${name}: ${status}`);
+        $(`.status_item[id="${name}"]>.status_name`).text(`${_STATUS.list[i].text}: ${_STATUS.list[i].values[v].text}`);
+        $(`.status_item[id="${name}"]>.status_icon`).css('background-color', `rgb(${color[0]}, ${color[1]}, ${color[2]})`);
     }
-
-    const {color} = value;
-
-    $(`.status_item[id="${name}"]`).attr('title', `${name}: ${status}`);
-    $(`.status_item[id="${name}"]>.status_name`).text(`${item.text}: ${value.text}`);
-    $(`.status_item[id="${name}"]>.status_icon`).css('background-color', `rgb(${color[0]}, ${color[1]}, ${color[2]})`);
 }
 
 const change_text_item = ({name, item_name, text}) => {
