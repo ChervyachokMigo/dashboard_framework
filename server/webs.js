@@ -15,7 +15,6 @@ const HTMLMainBody = (SOCKET_PORT) => {
         '<title>Dashboard</title>' +
         '<link rel="stylesheet" href="styles.css">' +
         '<script src="jquery.min.js"></script>' +
-        '<script src="status.js"></script>' +
     '</head>';
 
     const html_body = '<body>' +
@@ -28,9 +27,11 @@ const HTMLMainBody = (SOCKET_PORT) => {
         '</div>' +
     '</body>';
 
+    const sctipt = '<script src="status.js"></script>';
+
     const html_end = '</html>';
 
-    return `${html_begin}${html_head}${html_body}${html_end}`;
+    return `${html_begin}${html_head}${html_body}${sctipt}${html_end}`;
 }
 
 module.exports = {

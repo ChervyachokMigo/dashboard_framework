@@ -1,4 +1,13 @@
+const includeJs = (jsFilePath) => {
+    const js = document.createElement("script");
+    js.type = "text/javascript";
+    js.src = jsFilePath;
+    document.body.appendChild(js);
+}
+
 const _DEBUG = true;
+
+includeJs("./tools/image_loader.js");
 
 const isJSON = (str) => {
     try {
@@ -129,16 +138,18 @@ const create_feed_list = ({list}) => {
     _FEED.list = list;
     for (let {feedname, stack} of list){
         for (let args of stack){
-            add_event_to_page('append', {feedname, ...args});
+            if ( calculate_feed_elements_width() / $(window).width() < 1 ){
+                add_event_to_page('append', {feedname, ...args});
+            }
         }
         
     }
 }
 
 const feed_event = ({feedname, id, type, title, desc, url, icon, sound}) => {
-
     let url_html_begin = '';
     let url_html_end = '';
+    let img_html = '';
 
     if (url && url.href) {
         url_html_begin = `<a href="${url.href}" ${url.title?`title="${url.title}"`:''}>`;
@@ -146,19 +157,16 @@ const feed_event = ({feedname, id, type, title, desc, url, icon, sound}) => {
     }
 
     if (icon) {
-        icon_html = `<div class="feed_event_icon">`+ 
-            `<img src="${icon}">` +
-        `</div>`;
+        img_html = '<div class="feed_event_icon"></div>';
     }
 
     return `<div class="feed_event" type="${type}" id="${id}">` +
         url_html_begin + 
-        icon_html +
+        img_html +
         `<div class="feed_event_title">${title}</div>` +
         `<div class="feed_event_desc">${desc}</div>` +
-        
         url_html_end +
-    '</div>'
+    '</div>';
 }
 
 const calculate_feed_elements_width = () => {
@@ -177,25 +185,33 @@ const delete_outer_feed_elements = () => {
 }
 
 const add_event_to_page = (method, args) => {
-    const action = () => {
+
+    const action = (icon_img = null) => {
+        let feed_event_html = feed_event(args);
+
         switch (method) {
             case 'append':
-                $('.feed').append(feed_event(args))
+                $('.feed').append(feed_event_html)
                     .ready(delete_outer_feed_elements);
                 break;
             case 'prepend':
-                $('.feed').prepend(feed_event(args))
+                $('.feed').prepend(feed_event_html)
                     .ready(delete_outer_feed_elements);
                 break;
             default:
                 console.error('add event error method', method);
         }
+
+        if (icon_img){
+            $(`.feed_event[id=${args.id}] .feed_event_icon`).append(icon_img);
+        }
+
     }
 
     if (args.icon){
-        load_image(args.icon).then( () => {
-            action();
-        })
+        get_image(args.icon).then( (img) => {
+            action(img);
+        });
     } else {
         action();
     }
@@ -281,17 +297,8 @@ const css_load = ({list}) => {
     }
 }
 
-function load_image(src) {
-    return new Promise((resolve, reject) => {
-        const image = new Image();
-        image.addEventListener('load', resolve);
-        image.addEventListener('error', resolve);
-        image.src = src;
-    });
-}
-
 const change_background_image = ({selector, prop, value})=>{
-    load_image(value.replace('url(', '').replace(')','')).then(() => {
+    get_image(value.replace('url(', '').replace(')','')).then(() => {
         $(selector).fadeOut(500, () => {
             $(selector).css(prop, value);
             $(selector).fadeIn(500);
