@@ -7,6 +7,13 @@ body {
     background-attachment: fixed;
 }
 
+.feed_event_icon > img {
+    border: 1px solid #616161;
+    border-radius: 25px;
+    width: 256px;
+    margin: 4px 0;
+}
+
 a {
     text-decoration: none;
     cursor: pointer;
@@ -82,8 +89,10 @@ a {
 .feed_event_title {
     font-weight: bold;
     font-size: large;
+    padding: 0 8px;
 }
 
 .feed_event_desc {
     font-size: small;
+    padding: 0 8px;
 }

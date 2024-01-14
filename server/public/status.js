@@ -121,7 +121,7 @@ const create_feed_list = ({list}) => {
     _FEED.list = list;
     for (let {feedname, stack} of list){
         for (let args of stack){
-            append_event({feedname, ...args});
+            add_event_to_page('append', {feedname, ...args});
         }
         
     }
@@ -129,36 +129,59 @@ const create_feed_list = ({list}) => {
 
 const feed_event = ({feedname, id, type, title, desc, url, icon, sound}) => {
 
-    let url_begin = '';
-    let url_end = '';
+    let url_html_begin = '';
+    let url_html_end = '';
 
-    if (url) {
-        url_begin = `<a href="${url}">`;
-        url_end = '</a>';
+    if (url && url.href) {
+        url_html_begin = `<a href="${url.href}" ${url.title?`title="${url.title}"`:''}>`;
+        url_html_end = '</a>';
+    }
+
+    if (icon) {
+        icon_html = `<div class="feed_event_icon">`+ 
+            `<img src="${icon}">` +
+        `</div>`;
     }
 
     return `<div class="feed_event" type="${type}" id="${id}">` +
-        url_begin + 
+        url_html_begin + 
+        icon_html +
         `<div class="feed_event_title">${title}</div>` +
         `<div class="feed_event_desc">${desc}</div>` +
-        url_end +
+        
+        url_html_end +
     '</div>'
 }
 
-const append_event = (args) => {
-    $('.feed').append(feed_event(args));
+const calculate_feed_elements_width = () => {
+    const  res = Number(
+        $('.feed_event').get().reduce( (width, el) => width + $(el).outerWidth(true), 0) 
+    );
+    return isNaN(res)? 0 : res;
+}
 
-    while ( Number($('.feed').children().length) > ($( window ).width() / 162  - 0.5)  ) {
-        $('.feed').children().last().remove();
+const delete_outer_feed_elements = () => {
+    if ($('.feed_event').length > 0){
+        while ( calculate_feed_elements_width() / $(window).width() > 1 ) {
+            $('.feed').children().last().remove();
+        }
     }
 }
 
-const prepend_event = (args) => {
-    $('.feed').prepend(feed_event(args));
-
-    while ( Number($('.feed').children().length) > ($( window ).width() / 162 - 0.5) ) {
-        $('.feed').children().last().remove();
+const add_event_to_page = (method, args) => {
+    switch (method) {
+        case 'append':
+            $('.feed').append(feed_event(args))
+                .ready(delete_outer_feed_elements);
+            break;
+        case 'prepend':
+            $('.feed').prepend(feed_event(args))
+                .ready(delete_outer_feed_elements);
+            break;
+        default:
+            console.error('add event error method', method);
     }
+    
 }
 
 const create_feed = ({feedname}) => {
@@ -172,7 +195,7 @@ const emit_event = (args) => {
     let i = create_feed(args);
     _FEED.list[i].event_idx = _FEED.list[i].event_idx + 1;
     _FEED.list[i].stack.unshift(args);
-    prepend_event(args);
+    add_event_to_page('prepend', args);
 }
 
 const change_event_prop = ({feedname, type, propname, value}) => {
@@ -343,6 +366,13 @@ $(document).ready(function(){
         socket_response(JSON.parse(data));
 
     };
+
+    $( window ).on( "resize", () => {
+        $('.feed').empty().ready( () => {
+            create_feed_list({list: _FEED.list});
+        });
+        
+    })
 
 });
 

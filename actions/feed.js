@@ -19,7 +19,8 @@ module.exports = {
      * @param type
      * @param title
      * @param desc
-     * @param url
+     * @param url.href
+     * @param url.title
      * @param icon
      * @param sound
      */
