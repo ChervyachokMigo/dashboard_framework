@@ -47,21 +47,23 @@ const load_image = (src) => {
 
         const image_temp_path = path.join(images_temp_path, temp_image_name);
 
-        axios({ method: 'get', url: src, responseType: 'stream' })
-            .then( response => {
-                response.data.pipe(createWriteStream(image_temp_path)).on('finish', () => {
-                    const md5 = md5File.sync(image_temp_path);
-                    const image_name = `${md5}${path.extname(temp_image_name)}`;
-                    const image_path =  path.join(images_stock_path, image_name);
-                    copyFileSync(image_temp_path, image_path);
-                    rmSync(image_temp_path);
-                    image_add({
-                        src, 
-                        local_src: `images/${image_name}`,
-                    });
-                })
-                
-        });
+        axios({ 
+            method: 'get', 
+            url: src, 
+            responseType: 'stream' 
+        }).then( response => {
+            response.data.pipe(createWriteStream(image_temp_path)).on('finish', () => {
+                const md5 = md5File.sync(image_temp_path);
+                const image_name = `${md5}${path.extname(temp_image_name)}`;
+                const image_path =  path.join(images_stock_path, image_name);
+                copyFileSync(image_temp_path, image_path);
+                rmSync(image_temp_path);
+                image_add({
+                    src, 
+                    local_src: `images/${image_name}`,
+                });
+            }).on('error', e => console.error(e));
+        }). catch ( e => console.error(e));
 
     } catch (e) {
         console.error(e);
