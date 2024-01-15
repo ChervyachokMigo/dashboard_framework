@@ -2,14 +2,14 @@ let _settings = {};
 
 module.exports = {
     get: () => {
-        return _settings;
+        return { list: _settings };
     },
     
-    get: (param) => {
-        return _settings[param];
+    get: (name) => {
+        return _settings[name];
     },
 
-    set: (args) => {
-        _settings = args;
+    set: ({name, value}) => {
+        _settings[name] = value;
     },
 }

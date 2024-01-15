@@ -3,13 +3,14 @@ let SOCKET_PORT = null;
 
 const socket_onconnect = () => {
     socket_send('connected');
+    socket_send('get_settings');
     socket_send('get_status_list');
     socket_send('get_feed_list');
     socket_send('css_load');
 }
 
 const socket_response = ({action, response_data}) => {
-    if (_DEBUG){
+    if (get_setting('debug')){
         console.log(action, ':', response_data);
     }
 
@@ -28,6 +29,8 @@ const socket_response = ({action, response_data}) => {
         {name: 'css_load',          F: css_load},
         {name: 'css_apply',         F: css_apply},
         {name: 'change_element_text',F: change_element_text},
+        {name: 'set_setting',       F: set_setting},
+        {name: 'get_settings',      F: get_settings},
     ];
 
     let a = actions.find( v => v.name === action);

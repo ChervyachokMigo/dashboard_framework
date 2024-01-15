@@ -5,6 +5,7 @@ const { isJSON, log } = require('../misc/tools');
 const status = require('./data/status');
 const feed = require('./data/feed');
 const style = require('./data/style');
+const settings = require('../actions/settings');
 
 let clients = [];
 
@@ -53,6 +54,9 @@ module.exports = {
                             break;
                         case 'css_load':
                             response_data = { list: style.get_list() };
+                            break;
+                        case 'get_settings':
+                            response_data = { list: settings.get_settings() };
                             break;
                         default:
                             log('unknown action');

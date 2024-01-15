@@ -10,3 +10,11 @@ const isJSON = (str) => {
     }
     return true;
 }
+
+const get_value_by_key = (object, value) => {
+    if(Object.keys(object).find( key => key === value)){
+        return object[value];
+    } else {
+        return null;
+    }
+}

@@ -1,7 +1,6 @@
 
 const { clients_send } = require("../server/sockets");
 const _feed = require("../server/data/feed");
-const settings = require("../misc/settings");
 const { log } = require("../misc/tools");
 
 module.exports = {

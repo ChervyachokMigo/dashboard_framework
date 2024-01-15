@@ -1,5 +1,3 @@
-const _DEBUG = true;
-
 const include = async (js_src) => {
     return new Promise( (res) => {
         const js = document.createElement("script");
@@ -11,6 +9,7 @@ const include = async (js_src) => {
 }
 
 $(document).ready( async () => {
+    await include("./tools/settigs.js");
     await include("./tools/misc.js");
     await include("./tools/image_loader.js");
     await include("./tools/style.js");
