@@ -1,7 +1,7 @@
 
 let _settings = {};
 
-const get_settings = ({list}) => {
+const get_settings = ({ list }) => {
     _settings = {..._settings, ...list};
 }
 

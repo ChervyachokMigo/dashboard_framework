@@ -1,8 +1,8 @@
 let _settings = {};
 
 module.exports = {
-    get: () => {
-        return { list: _settings };
+    get_list: () => {
+        return _settings;
     },
     
     get: (name) => {
