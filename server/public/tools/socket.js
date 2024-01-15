@@ -31,6 +31,7 @@ const socket_response = ({action, response_data}) => {
         {name: 'change_element_text',F: change_element_text},
         {name: 'set_setting',       F: set_setting},
         {name: 'get_settings',      F: get_settings},
+        {name: 'get_image',         F: response_image},
     ];
 
     let a = actions.find( v => v.name === action);

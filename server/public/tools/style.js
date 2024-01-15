@@ -1,5 +1,5 @@
 const change_background_image = ({selector, prop, value})=>{
-    get_image(value.replace('url(', '').replace(')','')).then(() => {
+    load_image(value.replace('url(', '').replace(')','')).then(() => {
         $(selector).fadeOut(500, () => {
             $(selector).css(prop, value);
             $(selector).fadeIn(500);

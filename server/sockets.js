@@ -6,6 +6,7 @@ const status = require('./data/status');
 const feed = require('./data/feed');
 const style = require('./data/style');
 const settings = require('../misc/settings');
+const { get_image_html } = require('./data/image');
 
 let clients = [];
 
@@ -57,6 +58,9 @@ module.exports = {
                             break;
                         case 'get_settings':
                             response_data = { list: settings.get_list() };
+                            break;
+                        case 'get_image': 
+                            response_data = { ...get_image_html(request_data) };
                             break;
                         default:
                             log('unknown action');

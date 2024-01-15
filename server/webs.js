@@ -1,4 +1,5 @@
 const path = require('path');
+const cors = require('cors')
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -38,7 +39,8 @@ module.exports = {
     init_webserver: async (WEB_PORT, SOCKET_PORT) => {
         return new Promise( (res, rej) => {
             let WEB_SERVER = express();
-        
+            
+            WEB_SERVER.use(cors());
             WEB_SERVER.use(bodyParser.json());
             WEB_SERVER.use(bodyParser.urlencoded({ extended: false }));
         

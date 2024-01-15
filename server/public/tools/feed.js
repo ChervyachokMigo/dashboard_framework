@@ -60,36 +60,24 @@ const delete_outer_feed_elements = () => {
 
 const add_event_to_page = (method, args) => {
 
-    const action = (icon_img = null) => {
-        let feed_event_html = feed_event(args);
+    let feed_event_html = feed_event(args);
 
-        switch (method) {
-            case 'append':
-                $('.feed').append(feed_event_html)
-                    .ready(delete_outer_feed_elements);
-                break;
-            case 'prepend':
-                $('.feed').prepend(feed_event_html)
-                    .ready(delete_outer_feed_elements);
-                break;
-            default:
-                console.error('error add event method', method);
-        }
-
-        if (icon_img){
-            $(`.feed_event[id=${args.id}] .feed_event_icon`).append(icon_img);
-        }
-
+    switch (method) {
+        case 'append':
+            $('.feed').append(feed_event_html)
+                .ready(delete_outer_feed_elements);
+            break;
+        case 'prepend':
+            $('.feed').prepend(feed_event_html)
+                .ready(delete_outer_feed_elements);
+            break;
+        default:
+            console.error('error add event method', method);
     }
 
     if (args.icon){
-        get_image(args.icon).then( (img) => {
-            action(img);
-        });
-    } else {
-        action();
+        check_local_image({id: args.id, src: args.icon});
     }
-
 }
 
 const create_feed = ({feedname}) => {
