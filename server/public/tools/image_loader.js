@@ -3,10 +3,18 @@ const _images = {
     pending: []
 };
 
-const get_image_html = (src) => `<img src="${src}">`;
-
 const change_image_html_src = (id, src) => {
-    $(`.feed_event[id=${id}] .feed_event_icon`).html(get_image_html(src));
+    load_image(src).then( ({error, image_html}) => {
+        if (error) {
+            console.error(error);
+            return false;
+        }
+        const feed_event_selector = `.feed_event[id=${id}]`;
+        $(feed_event_selector).fadeOut(500, () => {
+            $(`.feed_event[id=${id}] .feed_event_icon`).html(image_html);
+            $(feed_event_selector).fadeIn(500);
+        });
+    });
 }
 
 const check_local_image = ({id, src}) => {
@@ -45,10 +53,10 @@ const response_image = async ({is_loading = false, remote_src, src }) => {
 }
 
 const load_image = async (src) => {
-    return new Promise((resolve, reject) => {
-        const image = new Image();
-        image.src = src;
-        image.addEventListener('load', () => resolve({image}));
-        image.addEventListener('error', () => resolve({error: '404'}));
+    return new Promise( (resolve, rej) => {
+        let img = new Image();
+        img.src = src;
+        img.onload = () => resolve ({image_html: img});
+        img.onerror = () => resolve ({error: '404'})
     })
-};
+}
