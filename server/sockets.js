@@ -7,6 +7,7 @@ const feed = require('./data/feed');
 const style = require('./data/style');
 const settings = require('../misc/settings');
 const { get_image_html } = require('./data/image');
+const { get_notifies } = require('./data/notify');
 
 let clients = [];
 
@@ -61,6 +62,9 @@ module.exports = {
                             break;
                         case 'get_image': 
                             response_data = { ...get_image_html(request_data) };
+                            break;
+                        case 'get_notifies': 
+                            response_data = { list: get_notifies() };
                             break;
                         default:
                             log('unknown action');

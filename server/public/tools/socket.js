@@ -1,9 +1,11 @@
+
 let SOCKET = null;
 let SOCKET_PORT = null;
 
 const socket_onconnect = () => {
     socket_send('connected');
     socket_send('get_settings');
+    socket_send('get_notifies');
     socket_send('get_status_list');
     socket_send('get_feed_list');
     socket_send('css_load');
@@ -32,6 +34,8 @@ const socket_response = ({action, response_data}) => {
         {name: 'set_setting',       F: set_setting},
         {name: 'get_settings',      F: get_settings},
         {name: 'get_image',         F: response_image},
+        {name: 'set_notifies',      F: set_notifies},
+        {name: 'get_notifies',      F: set_notifies}
     ];
 
     let a = actions.find( v => v.name === action);

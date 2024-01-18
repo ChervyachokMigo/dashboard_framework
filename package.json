@@ -1,6 +1,6 @@
 {
   "name": "dashboard_framework",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -19,6 +19,7 @@
     "fs-extra": "^11.2.0",
     "md5-file": "^5.0.0",
     "path": "^0.12.7",
+    "permissions-policy": "^0.6.0",
     "sound-play": "^1.1.0",
     "ws": "^8.16.0"
   }

@@ -1,5 +1,6 @@
 const path = require('path');
 const cors = require('cors')
+const permissions_policy = require("permissions-policy");
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -43,6 +44,12 @@ module.exports = {
             WEB_SERVER.use(cors());
             WEB_SERVER.use(bodyParser.json());
             WEB_SERVER.use(bodyParser.urlencoded({ extended: false }));
+            WEB_SERVER.use(permissions_policy({
+                features: {
+                    fullscreen: ["self"],
+                    autoplay: ["self"]
+                }
+            }));
         
             WEB_SERVER.use(express.static(WEBSERVER_PUBLIC_PATH));
         

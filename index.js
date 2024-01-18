@@ -7,7 +7,7 @@ const { init_webserver } = require('./server/webs');
 module.exports = {
     ...require('./actions/settings.js'),
     
-    ...require('./server/data/notify'),
+    ...require('./actions/notify'),
     ...require('./actions/status'),
     ...require('./actions/feed'),
     ...require('./actions/style'),

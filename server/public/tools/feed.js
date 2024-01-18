@@ -24,6 +24,7 @@ const feed_event = ({feedname, id, type, title, desc, url, icon, sound}) => {
     let url_html_begin = '';
     let url_html_end = '';
     let img_html = '';
+    let sound_html = '';
 
     if (url && url.href) {
         url_html_begin = `<a href="${url.href}" ${url.title?`title="${url.title}"`:''}>`;
@@ -34,11 +35,19 @@ const feed_event = ({feedname, id, type, title, desc, url, icon, sound}) => {
         img_html = '<div class="feed_event_icon"></div>';
     }
 
+    if (sound) {
+        const notify_path = get_notify_path(sound);
+        if (notify_path){
+            sound_html = `<audio autoplay><source src="${notify_path}" type="audio/mpeg"></audio>`;
+        }
+    }
+
     return `<div class="feed_event" type="${type}" id="${id}">` +
         url_html_begin + 
         img_html +
         `<div class="feed_event_title">${title}</div>` +
         `<div class="feed_event_desc">${desc}</div>` +
+        `<div class="feed_event_sound">${sound_html}</div>` +
         url_html_end +
     '</div>';
 }

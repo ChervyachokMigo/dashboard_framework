@@ -1,9 +1,13 @@
 const { existsSync, mkdirSync, readdirSync } = require("fs-extra");
 const path = require("path");
 const { play } = require("sound-play");
+const md5File = require('md5-file');
+const { copyFileSync } = require("fs");
 
 let sounds_folder = null;
 let notifies = [];
+
+const SOUNDS_PATH = path.join(__dirname, '..', 'public', 'sounds');
 
 module.exports = {
     /**
@@ -12,14 +16,19 @@ module.exports = {
      * @property name
      * @property file
      */
-    set_notify_sounds: ({folder_path, sounds}) => {
+    set_notifies: ({folder_path, sounds}) => {
         if (!existsSync(folder_path)){
             mkdirSync(folder_path, {recursive: true});
             console.error('sounds folder was created. puts in sounds');
             return;
         }
 
-        sounds_folder = folder_path;
+        if (!existsSync(SOUNDS_PATH)){
+            mkdirSync(SOUNDS_PATH, {recursive: true});
+        }
+
+        sounds_folder = path.join(path.dirname(process.argv[1]), folder_path);
+
         const files = readdirSync(folder_path, {encoding: 'utf8'});
 
         for (let {file, name} of sounds) {
@@ -28,9 +37,19 @@ module.exports = {
                 break;
             }
             if (files.indexOf(file) > -1 && name.length > 0){
-                notifies.push({name, file});
+                const src = path.join(sounds_folder, file);
+                const md5 = `${md5File.sync(src)}${path.extname(file)}`;
+                const dest = path.join(SOUNDS_PATH, md5);
+                copyFileSync(src, dest);
+                notifies.push({ name, file, md5 });
             }
         }
+
+        return notifies;
+    },
+
+    get_notifies: () => {
+        return notifies;
     },
 
     get_notify: (name) => {
