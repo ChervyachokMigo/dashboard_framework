@@ -1,5 +1,5 @@
 set_setting ({name:string, value: boolean})
-  { name: 'debug', value: boolean }
+  available: { name: 'debug', value: boolean }
 
 set_notifies({folder_path: string, Array [{name: string, file: string}...{},]})
 
