@@ -13,11 +13,11 @@ const change_image_html_src = (id, src) => {
         const feed_event_selector = `.feed_event[id=${id}]`;
         
         $(feed_event_selector).fadeOut(500, () => {
-            $(`.feed_event[id=${id}] .feed_event_icon`).html(image_html);
+            delete_outer_feed_elements();
+            $(`.feed_event[id=${id}] .feed_event_icon`).html(image_html).ready();
             $(feed_event_selector).fadeIn(500);
         });
 
-        delete_outer_feed_elements();
     });
 }
 
