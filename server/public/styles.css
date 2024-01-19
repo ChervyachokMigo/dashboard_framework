@@ -103,7 +103,7 @@ a {
     position: fixed;
 }
 
-.overflow:hover {
+.overflow > div:hover {
     animation-duration: 0.3s;
     animation-name: scalein;
     animation-fill-mode: forwards;

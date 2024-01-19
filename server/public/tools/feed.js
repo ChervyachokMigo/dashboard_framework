@@ -74,11 +74,17 @@ const add_event_to_page = (method, args) => {
     switch (method) {
         case 'append':
             $('.feed').append(feed_event_html)
-                .ready(delete_outer_feed_elements);
+                .ready(()=>{
+                    change_volume();
+                    delete_outer_feed_elements();
+                });
             break;
         case 'prepend':
             $('.feed').prepend(feed_event_html)
-                .ready(delete_outer_feed_elements);
+                .ready(()=>{
+                    change_volume();
+                    delete_outer_feed_elements();
+                });
             break;
         default:
             console.error('error add event method', method);
