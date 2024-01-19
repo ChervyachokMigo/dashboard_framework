@@ -98,12 +98,14 @@ a {
 }
 
 .overflow {
-    top: 0;
-    right: 0;
+    top: 20px;
+    right: 20px;
     position: fixed;
+    /*background: rgba(255,255,255,0.1);
+    border-radius: 16px;*/
 }
 
-.overflow > div:hover {
+.overflow > div > img:hover {
     animation-duration: 0.3s;
     animation-name: scalein;
     animation-fill-mode: forwards;
