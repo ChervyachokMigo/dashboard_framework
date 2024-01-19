@@ -5,12 +5,12 @@ module.exports = {
         return _styles;
     },
 
-    add: (args) => {
-        const i = _styles.findIndex(v => v.selector === args.selector && v.prop === args.prop );
+    add: ({selector, prop, value}) => {
+        const i = _styles.findIndex(v => v.selector === selector && v.prop === prop );
         if (i > -1){
-            _styles[i].value = args.value;
+            _styles[i].value = value;
         } else {
-            _styles.push(args);
+            _styles.push({selector, prop, value});
         }
     },
 
