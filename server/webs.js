@@ -27,6 +27,11 @@ const HTMLMainBody = (SOCKET_PORT) => {
         '<div class="bottom">' +
             '<div class="feed"></div>' +
         '</div>' +
+        '<div class="overflow">' +
+            '<div class="fullscreen">' +
+                '<img src="images/fullscreen.png">' +
+            '</div>' +
+        '</div>'
     '</body>';
 
     const sctipt = '<script src="scripts_init.js"></script>';

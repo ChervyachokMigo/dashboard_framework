@@ -11,6 +11,6 @@ const get_notify_path = (name) => {
     if (!notify){
         return null;
     } else {
-        return `sounds/${notify.md5}`;
+        return `cache/sounds/${notify.md5}`;
     }
 }

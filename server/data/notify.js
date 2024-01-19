@@ -7,7 +7,7 @@ const { copyFileSync } = require("fs");
 let sounds_folder = null;
 let notifies = [];
 
-const SOUNDS_PATH = path.join(__dirname, '..', 'public', 'sounds');
+const SOUNDS_PATH = path.join(__dirname, '..', 'public', 'cache', 'sounds');
 
 module.exports = {
     /**

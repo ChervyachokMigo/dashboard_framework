@@ -5,7 +5,7 @@ const md5File = require('md5-file');
 const fsExtra = require('fs-extra');
 
 const images_data_path = path.join(__dirname, 'images_db.json');
-const images_stock_path = path.join(__dirname, '..', 'public', 'images');
+const images_stock_path = path.join(__dirname, '..', 'public', 'cache', 'images');
 const images_temp_path = path.join(__dirname, 'temp');
 
 const _images = {
@@ -60,7 +60,7 @@ const load_image = (src) => {
                 rmSync(image_temp_path);
                 image_add({
                     src, 
-                    local_src: `images/${image_name}`,
+                    local_src: `cache/images/${image_name}`,
                 });
             }).on('error', e => console.error(e));
         }). catch ( e => console.error(e));

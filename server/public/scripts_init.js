@@ -8,7 +8,8 @@ const include = async (js_src) => {
     })
 }
 
-$(async () => {
+$(document).ready( async () => {
+    await include("./tools/fullscreen.js");
     await include("./tools/settings.js");
     await include("./tools/misc.js");
     await include("./tools/notifies.js");

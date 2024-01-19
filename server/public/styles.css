@@ -96,3 +96,40 @@ a {
     font-size: small;
     padding: 0 8px;
 }
+
+.overflow {
+    top: 0;
+    right: 0;
+    position: fixed;
+}
+
+.overflow:hover {
+    animation-duration: 0.3s;
+    animation-name: scalein;
+    animation-fill-mode: forwards;
+}
+
+@keyframes scalein {
+    from {
+        scale: 1;
+    }
+
+    to {
+        scale: 1.1;
+        animation-play-state: paused;
+    }
+}
+
+.overflow img {
+    width: 32px;
+    margin: 16px;
+    -webkit-filter: drop-shadow(1px 1px 0 rgba(0,0,0,0.4))
+                    drop-shadow(-1px -1px 0 rgba(0,0,0,0.4)) 
+                    drop-shadow(1px -1px 0 rgba(0,0,0,0.4)) 
+                    drop-shadow(-1px 1px 0 rgba(0,0,0,0.4)) ;
+
+    filter: drop-shadow(1px 1px 0 rgba(0,0,0,0.4)) 
+            drop-shadow(-1px -1px 0 rgba(0,0,0,0.4)) 
+            drop-shadow(1px -1px 0 rgba(0,0,0,0.4)) 
+            drop-shadow(-1px 1px 0 rgba(0,0,0,0.4)) ;
+}

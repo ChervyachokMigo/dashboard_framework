@@ -1,4 +1,4 @@
 /node_modules
 /server/data/images_db.json
-/server/public/images
-/server/public/sounds
+/server/public/cache/images
+/server/public/cache/sounds
