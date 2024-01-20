@@ -10,6 +10,7 @@ const change_volume = () => {
 const toggle_mute = () => {
     mute = !mute;
     volume = mute ? 0 : 1;
+    console.log(mute, volume);
 }
 
 $('.mute').on('click', (e) => {

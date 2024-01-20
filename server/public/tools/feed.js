@@ -35,21 +35,12 @@ const feed_event = ({feedname, id, type, title, desc, url, icon, sound}) => {
         img_html = '<div class="feed_event_icon"></div>';
     }
 
-    if (sound) {
-        const notify_path = get_notify_path(sound);
-        if (notify_path){
-            sound_html = `<audio autoplay preload="auto" volume="1">` +
-                `<source src="${notify_path}" type="audio/mpeg">` +
-            `</audio>`;
-        }
-    }
-
     return `<div class="feed_event" type="${type}" id="${id}">` +
         url_html_begin + 
         img_html +
         `<div class="feed_event_title">${title}</div>` +
         `<div class="feed_event_desc">${desc}</div>` +
-        `<div class="feed_event_sound">${sound_html}</div>` +
+        `<div class="feed_event_sound"></div>` +
         url_html_end +
     '</div>';
 }
