@@ -24,7 +24,6 @@ const feed_event = ({feedname, id, type, title, desc, url, icon, sound}) => {
     let url_html_begin = '';
     let url_html_end = '';
     let img_html = '';
-    let sound_html = '';
 
     if (url && url.href) {
         url_html_begin = `<a href="${url.href}" ${url.title?`title="${url.title}"`:''}>`;
@@ -64,26 +63,24 @@ const add_event_to_page = (method, args) => {
 
     let feed_event_html = feed_event(args);
 
-    let els = $('.feed');
-    let els_2 = null;
+    let feed_el = $('.feed');
+    let el_pend = null;
 
     switch (method) {
         case 'append':
-            els_2 = els.append(feed_event_html);
+            el_pend = feed_el.append(feed_event_html);
             break;
         case 'prepend':
-            els_2 = els.prepend(feed_event_html);
+            el_pend = feed_el.prepend(feed_event_html);
             break;
         default:
             console.error('error add event method', method);
     }
 
-    if (els_2){
-        els_2.ready(() => {
-            create_audio(args.id, args.sound);
-                delete_outer_feed_elements();
-            });
-    }
+    el_pend.ready( () => {
+        delete_outer_feed_elements();
+        create_audio(args.id, get_notify_path(args.sound));
+    });    
 
     if (args.icon){
         check_local_image({id: args.id, src: args.icon});

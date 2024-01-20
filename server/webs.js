@@ -32,7 +32,7 @@ const HTMLMainBody = (SOCKET_PORT) => {
                 '<img src="images/fullscreen.png">' +
             '</div>' +
             '<div class="mute">' +
-                '<img src="images/mute.png">' +
+                '<img src="images/unmute.png">' +
             '</div>' +
         '</div>'
     '</body>';

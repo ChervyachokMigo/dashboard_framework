@@ -1,5 +1,5 @@
-let volume = 1;
-let mute = false;
+let volume = 0;
+let mute = true;
 
 const change_volume = () => {
     for (let i in $('audio')){
@@ -10,7 +10,6 @@ const change_volume = () => {
 const toggle_mute = () => {
     mute = !mute;
     volume = mute ? 0 : 1;
-    console.log(mute, volume);
 }
 
 $('.mute').on('click', (e) => {
@@ -22,14 +21,17 @@ $('.mute').on('click', (e) => {
 const load_sound = async (src) => {
     return new Promise( (resolve, rej) => {
         let au = new Audio();
-        au.src = get_notify_path(src);
+        au.src = src;
         if (extname(src) === '.mp3') {
             au.type = "audio/mpeg";
         }
         au.preload = "auto";
         au.autoplay = true;
         au.volume = volume;
-        au.onload = () => resolve ({audio_html: au});
+        au.load();
+        au.onloadeddata = () => {
+            resolve ({audio_html: au});
+        };
         au.onerror = () => resolve ({error: '404'});
     })
 }
@@ -40,13 +42,7 @@ const create_audio = (id, src) => {
             console.error(error);
             return false;
         }
-
         const feed_event_selector = `.feed_event[id=${id}]`;
-        
-        $(feed_event_selector).ready( () => {
-            delete_outer_feed_elements();
-            $(`.feed_event[id=${id}] .feed_event_sound`).html(audio_html);
-        });
-
+        $(`${feed_event_selector}>.feed_event_sound`).html(audio_html);
     });
 }
