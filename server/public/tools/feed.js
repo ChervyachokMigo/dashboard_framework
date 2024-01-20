@@ -38,7 +38,9 @@ const feed_event = ({feedname, id, type, title, desc, url, icon, sound}) => {
     if (sound) {
         const notify_path = get_notify_path(sound);
         if (notify_path){
-            sound_html = `<audio autoplay><source src="${notify_path}" type="audio/mpeg"></audio>`;
+            sound_html = `<audio autoplay preload="auto" volume="1">` +
+                `<source src="${notify_path}" type="audio/mpeg">` +
+            `</audio>`;
         }
     }
 
@@ -71,23 +73,25 @@ const add_event_to_page = (method, args) => {
 
     let feed_event_html = feed_event(args);
 
+    let els = $('.feed');
+    let els_2 = null;
+
     switch (method) {
         case 'append':
-            $('.feed').append(feed_event_html)
-                .ready(()=>{
-                    change_volume();
-                    delete_outer_feed_elements();
-                });
+            els_2 = els.append(feed_event_html);
             break;
         case 'prepend':
-            $('.feed').prepend(feed_event_html)
-                .ready(()=>{
-                    change_volume();
-                    delete_outer_feed_elements();
-                });
+            els_2 = els.prepend(feed_event_html);
             break;
         default:
             console.error('error add event method', method);
+    }
+
+    if (els_2){
+        els_2.ready(() => {
+            create_audio(args.id, args.sound);
+                delete_outer_feed_elements();
+            });
     }
 
     if (args.icon){

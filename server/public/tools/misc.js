@@ -18,3 +18,7 @@ const get_value_by_key = (object, value) => {
         return null;
     }
 }
+
+const extname = (filepath) => {
+    return filepath.substr(filepath.lastIndexOf('.'));
+}
