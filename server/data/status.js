@@ -7,6 +7,10 @@ module.exports = {
         return _status.list;
     },
 
+    get_names: () => {
+        return _status.list.map( v => v.name);
+    },
+
     add: ({name, text, values, status}) => {
         if (_status.list.findIndex( v => v.name === name) === -1) {
             _status.list.push({name, text, values, status});

@@ -9,10 +9,13 @@ const include = async (js_src) => {
 }
 
 $(document).ready( async () => {
+    //tools
+    await include("./tools/misc.js");
+    await include("./tools/settings.js");
+    await include("./tools/debug.js");
+    //web_elements
     await include("./tools/fullscreen.js");
     await include("./tools/mute.js");
-    await include("./tools/settings.js");
-    await include("./tools/misc.js");
     await include("./tools/notifies.js");
     await include("./tools/image_loader.js");
     await include("./tools/style.js");
@@ -22,7 +25,8 @@ $(document).ready( async () => {
             recreate_feed_list();
         });
     });
-    
+    await include("./tools/screen.js");
+    //server_tools
     await include("./tools/socket.js").finally( () => {
         socket_init();
     });

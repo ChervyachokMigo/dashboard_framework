@@ -3,8 +3,11 @@ const _FEED = {
 }
 
 const create_feed_list = ({list}) => {
+    log ('create_feed_list', {list});
+    
     _FEED.list = list;
     for (let {feedname, stack} of list){
+        $('.feed').attr('id', feedname);
         for (let args of stack){
             if ( calculate_feed_elements_width() / $(window).width() < 1 ){
                 add_event_to_page('append', {feedname, ...args});
@@ -20,7 +23,7 @@ const recreate_feed_list = () => {
     });
 }
 
-const feed_event = ({feedname, id, type, title, desc, url, icon, sound}) => {
+const feed_event = ({id, type, title, desc, url, icon}) => {
     let url_html_begin = '';
     let url_html_end = '';
     let img_html = '';
@@ -60,10 +63,12 @@ const delete_outer_feed_elements = () => {
 }
 
 const add_event_to_page = (method, args) => {
+    log ('add_event_to_page', method, args);
 
     let feed_event_html = feed_event(args);
 
-    let feed_el = $('.feed');
+    let feed_el = $('#'+args.feedname);
+
     let el_pend = null;
 
     switch (method) {
@@ -79,7 +84,9 @@ const add_event_to_page = (method, args) => {
 
     el_pend.ready( () => {
         delete_outer_feed_elements();
-        create_audio(args.id, get_notify_path(args.sound));
+        if (args.sound){
+            create_audio(args.id, get_notify_path(args.sound));
+        }
     });    
 
     if (args.icon){

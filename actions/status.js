@@ -74,4 +74,7 @@ module.exports = {
         }
     },
 
+    get_status_names: () => {
+        return _status.get_names();
+    }
 }

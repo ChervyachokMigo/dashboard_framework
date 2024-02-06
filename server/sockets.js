@@ -8,6 +8,7 @@ const style = require('./data/style');
 const settings = require('../misc/settings');
 const { get_image_html } = require('./data/image');
 const { get_notifies } = require('./data/notify');
+const { get_screens, get_current_screen } = require('./data/screen');
 
 let clients = [];
 
@@ -65,6 +66,12 @@ module.exports = {
                             break;
                         case 'get_notifies': 
                             response_data = { list: get_notifies() };
+                            break;
+                        case 'get_screens': 
+                            response_data = { list: get_screens() };
+                            break;
+                        case 'get_current_screen': 
+                            response_data = { current: get_current_screen() };
                             break;
                         default:
                             log('unknown action');

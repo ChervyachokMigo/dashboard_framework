@@ -25,7 +25,7 @@ module.exports = {
         const id = _feed.list[i].event_idx;
         _feed.list[i].event_idx = _feed.list[i].event_idx + 1;
         _feed.list[i].stack.unshift({id, type, title, date, desc, url, icon, sound});
-        return {id, type, title, date, desc, url, icon, sound};
+        return {feedname, id, type, title, date, desc, url, icon, sound};
     },
 
     change_event_prop: ({feedname, type, propname, value}) => {

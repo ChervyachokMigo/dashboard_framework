@@ -37,6 +37,11 @@ const load_sound = async (src) => {
 }
 
 const create_audio = (id, src) => {
+    if (!src) {
+        console.error('audio src is null');
+        return false;
+    }
+
     load_sound(src).then( ({error, audio_html}) => {
         if (error) {
             console.error(error);

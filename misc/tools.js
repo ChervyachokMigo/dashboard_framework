@@ -14,6 +14,5 @@ module.exports = {
         if (settings.get('debug')){
             console.log(...args);
         }
-        
     },
 }

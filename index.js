@@ -12,6 +12,8 @@ module.exports = {
     ...require('./actions/feed'),
     ...require('./actions/style'),
 
+    ...require('./actions/screen'),
+
     run: async (WEB_PORT, SOCKET_PORT) => {
         init_images();
 
