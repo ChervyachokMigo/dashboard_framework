@@ -9,6 +9,7 @@ module.exports = {
     
     ...require('./actions/notify'),
     ...require('./actions/status'),
+	...require('./actions/progress'),
     ...require('./actions/feed'),
     ...require('./actions/style'),
 

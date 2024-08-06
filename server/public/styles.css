@@ -61,6 +61,38 @@ a {
     border-radius: 50%;    
 }
 
+.progress {
+	display: flex;
+    flex-direction: row;
+    width: fit-content;
+    padding: 4px 4px 4px 14px;
+    font-family: monospace;
+}
+
+.progress_bar {
+	appearance: none;
+}
+
+.progress_bar::-webkit-progress-bar {
+	background: #eee;
+	border-radius: 25px;
+}
+
+.progress_bar::-webkit-progress-value {
+	background: #316be9;
+	border-radius: 25px;
+}
+
+.progress_bar::-moz-progress-bar {
+	background: #316be9;
+	border-radius: 25px;
+}
+
+.progress_bar::-webkit-progress-inner-element {
+	border: #000 solid 1px;
+	border-radius: 25px;
+}
+
 .bottom {
     width: 100vw;
 }

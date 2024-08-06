@@ -20,6 +20,7 @@ $(document).ready( async () => {
     await include("./tools/image_loader.js");
     await include("./tools/style.js");
     await include("./tools/status.js");
+	await include("./tools/progress.js");
     await include("./tools/feed.js").finally( () => {
         $( window ).on( "resize", () => {
             recreate_feed_list();

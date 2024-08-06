@@ -1,6 +1,8 @@
 const socket_actions = [
     {name: 'connected',           F: null},
     {name: 'get_status_list',     F: create_status_list},
+	{name: 'get_progress_list',	  F: create_progress_list},
+	{name: 'change_progress_value',F: change_progress_value},
     {name: 'get_feed_list',       F: create_feed_list},
     {name: 'add_status',          F: add_status},
     {name: 'add_status_item',     F: add_status_item},
@@ -35,6 +37,7 @@ const socket_onconnect = () => {
     socket_send('get_settings');
     socket_send('get_notifies');
     socket_send('get_status_list');
+	socket_send('get_progress_list');
     socket_send('get_feed_list');
     socket_send('css_load');
     socket_send('get_screens');

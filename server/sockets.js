@@ -9,6 +9,7 @@ const settings = require('../misc/settings');
 const { get_image_html } = require('./data/image');
 const { get_notifies } = require('./data/notify');
 const { get_screens, get_current_screen } = require('./data/screen');
+const progress = require('./data/progress');
 
 let clients = [];
 
@@ -52,6 +53,9 @@ module.exports = {
                         case 'get_status_list':
                             response_data = { list: status.get_list() };
                             break;
+						case 'get_progress_list':
+							response_data = { list: progress.get_list() };
+							break;
                         case 'get_feed_list':
                             response_data = { list: feed.get_list() };
                             break;
