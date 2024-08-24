@@ -32,7 +32,7 @@ const feed_event = ({id, type, title, desc, url, icon}) => {
 
 	if (type === 'ticker') {
 		classname = 'feed_event_ticker';
-		style += 'top: ' + Math.trunc(Math.random() * 90) + 'hv;';		
+		style += 'top: ' + Math.trunc(Math.random() * 90) + 'vh;';
 		setTimeout( () => {
 			$(`.feed > #${classname}_${id}`).remove();
 		}, 10000);
@@ -112,7 +112,7 @@ const add_event_to_page = (method, args) => {
 
 const create_feed = ({feedname}) => {
     if (_FEED.list.findIndex( v => v.feedname === feedname) === -1) {
-        _FEED.list.push({feedname, event_idx: 0, stack: []});
+        _FEED.list.push({feedname, event_idx: new Date().valueOf(), stack: []});
     }
     return _FEED.list.findIndex( v => v.feedname === feedname);
 }
@@ -129,7 +129,7 @@ const remove_event = ({feedname}) => {
 
 const emit_event = (args) => {
     let i = create_feed(args);
-    _FEED.list[i].event_idx = _FEED.list[i].event_idx + 1;
+    _FEED.list[i].event_idx = new Date().valueOf();
     _FEED.list[i].stack.unshift(args);
     add_event_to_page('prepend', args);
 }

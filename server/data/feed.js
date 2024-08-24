@@ -4,7 +4,7 @@ const _feed = {
 
 const create_feed = ({feedname}) => {
     if (_feed.list.findIndex( v => v.feedname === feedname) === -1) {
-        _feed.list.push({feedname, event_idx: 0, stack: []});
+        _feed.list.push({feedname, event_idx: new Date().valueOf(), stack: []});
     }
     return _feed.list.findIndex( v => v.feedname === feedname);
 }
@@ -23,7 +23,7 @@ module.exports = {
         let i = create_feed({feedname});
         const date = new Date();
         const id = _feed.list[i].event_idx;
-        _feed.list[i].event_idx = _feed.list[i].event_idx + 1;
+        _feed.list[i].event_idx = new Date().valueOf();
         _feed.list[i].stack.unshift({id, type, title, date, desc, url, icon, sound});
         return {feedname, id, type, title, date, desc, url, icon, sound};
     },

@@ -26,6 +26,14 @@ const main = async () => {
         type: 'ticker',
         title: `тестовое сообщение`,
     });
+
+	setInterval( async () => {
+		await dashboard.emit_event({
+        feedname: 'last_beatmaps',
+        type: 'ticker',
+        title: `тестовое сообщение`,
+    });
+	}, 2000);
 }
 
 main();
