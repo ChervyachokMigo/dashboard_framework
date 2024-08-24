@@ -27,6 +27,14 @@ const feed_event = ({id, type, title, desc, url, icon}) => {
     let url_html_begin = '';
     let url_html_end = '';
     let img_html = '';
+	let classname = 'feed_event';
+
+	if (type === 'ticker') {
+		classname = 'feed_event_ticker';		
+		setTimeout( () => {
+			$(`.${classname}`).remove();
+		}, 10000);
+	}
 
     if (url && url.href) {
         url_html_begin = `<a href="${url.href}" ${url.title?`title="${url.title}"`:''}>`;
@@ -34,15 +42,15 @@ const feed_event = ({id, type, title, desc, url, icon}) => {
     }
 
     if (icon) {
-        img_html = '<div class="feed_event_icon"></div>';
+        img_html = `<div class="${classname}_icon"></div>`;
     }
 
-    return `<div class="feed_event" type="${type}" id="${id}">` +
+    return `<div class="${classname}" type="${type}" id="${id}">` +
         url_html_begin + 
         img_html +
-        `<div class="feed_event_title">${title}</div>` +
-        `<div class="feed_event_desc">${desc}</div>` +
-        `<div class="feed_event_sound"></div>` +
+        `<div class="${classname}_title">${title}</div>` +
+        `<div class="${classname}_desc">${desc}</div>` +
+        `<div class="${classname}_sound"></div>` +
         url_html_end +
     '</div>';
 }
@@ -70,6 +78,12 @@ const add_event_to_page = (method, args) => {
     let feed_el = $('#'+args.feedname);
 
     let el_pend = null;
+
+	if (args.type === 'ticker') {
+		setTimeout( () => {
+			remove_event(args);
+		}, 10000);
+	}
 
     switch (method) {
         case 'append':
@@ -101,12 +115,24 @@ const create_feed = ({feedname}) => {
     return _FEED.list.findIndex( v => v.feedname === feedname);
 }
 
+const remove_event = ({feedname}) => {
+	const i = _FEED.list.findIndex( v => v.feedname === feedname);
+
+    if (i === -1) {
+        return false;
+    }
+
+	_FEED.list.splice(i, 1);
+}
+
 const emit_event = (args) => {
     let i = create_feed(args);
     _FEED.list[i].event_idx = _FEED.list[i].event_idx + 1;
     _FEED.list[i].stack.unshift(args);
     add_event_to_page('prepend', args);
 }
+
+
 
 const change_event_prop = ({feedname, type, propname, value}) => {
     const i = _FEED.list.findIndex( v => v.feedname === feedname);

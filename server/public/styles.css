@@ -167,3 +167,31 @@ a {
             drop-shadow(1px -1px 0 rgba(0,0,0,0.4)) 
             drop-shadow(-1px 1px 0 rgba(0,0,0,0.4)) ;
 }
+
+.hidden {
+	display: none;
+}
+
+.feed_event_ticker {
+	font-family: monospace;
+	font-style: normal;
+	font-weight: bolder;
+    font-size: large;
+	width: max-content;
+	text-wrap: nowrap;
+	top:  0;
+	left: 100vw;
+	position: absolute;
+	z-index: 100;
+	opacity: 1;
+	animation: ticker 10s infinite linear;
+}
+
+@keyframes ticker {
+  0%{
+    left: 100vw;
+  }
+  100%{
+    left: -50vw;
+  }
+}

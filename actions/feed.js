@@ -26,6 +26,11 @@ module.exports = {
     emit_event: async (args) => {
         log('emit_event', args);
         const new_event = _feed.add_event(args);
+		if (args.type === 'ticker') {
+			setTimeout( () => {
+				_feed.remove_event(args);
+			}, 10000);
+		}
         await clients_send('emit_event', new_event);
     },
 

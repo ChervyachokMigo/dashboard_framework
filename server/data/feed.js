@@ -28,6 +28,15 @@ module.exports = {
         return {feedname, id, type, title, date, desc, url, icon, sound};
     },
 
+	remove_event: ({feedname}) => {
+		const i = _feed.list.findIndex( v => v.feedname === feedname);
+        if (i!== -1) {
+            _feed.list.splice(i, 1);
+			return true;
+        }
+		return false;
+	},
+
     change_event_prop: ({feedname, type, propname, value}) => {
         const i = _feed.list.findIndex( v => v.feedname === feedname);
 
