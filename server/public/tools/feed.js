@@ -32,7 +32,7 @@ const feed_event = ({id, type, title, desc, url, icon}) => {
 	if (type === 'ticker') {
 		classname = 'feed_event_ticker';		
 		setTimeout( () => {
-			$(`.${classname}`).remove();
+			$(`.feed > #${classname}_${id}`).remove();
 		}, 10000);
 	}
 
@@ -45,7 +45,7 @@ const feed_event = ({id, type, title, desc, url, icon}) => {
         img_html = `<div class="${classname}_icon"></div>`;
     }
 
-    return `<div class="${classname}" type="${type}" id="${id}">` +
+    return `<div class="${classname}" type="${type}" id="${classname}_${id}">` +
         url_html_begin + 
         img_html +
         `<div class="${classname}_title">${title}</div>` +
