@@ -28,9 +28,11 @@ const feed_event = ({id, type, title, desc, url, icon}) => {
     let url_html_end = '';
     let img_html = '';
 	let classname = 'feed_event';
+	let style = '';
 
 	if (type === 'ticker') {
-		classname = 'feed_event_ticker';		
+		classname = 'feed_event_ticker';
+		style += 'top: ' + Math.trunc(Math.random() * 90) + 'hv;';		
 		setTimeout( () => {
 			$(`.feed > #${classname}_${id}`).remove();
 		}, 10000);
@@ -45,7 +47,7 @@ const feed_event = ({id, type, title, desc, url, icon}) => {
         img_html = `<div class="${classname}_icon"></div>`;
     }
 
-    return `<div class="${classname}" type="${type}" id="${classname}_${id}">` +
+    return `<div class="${classname}" style="${style}" type="${type}" id="${classname}_${id}">` +
         url_html_begin + 
         img_html +
         `<div class="${classname}_title">${title}</div>` +
