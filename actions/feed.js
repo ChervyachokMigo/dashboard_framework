@@ -29,7 +29,7 @@ module.exports = {
 		if (args.type === 'ticker') {
 			setTimeout( () => {
 				_feed.remove_event(args);
-			}, 10000);
+			}, 30000);
 		}
         await clients_send('emit_event', new_event);
     },

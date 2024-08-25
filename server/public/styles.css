@@ -184,7 +184,7 @@ a {
 	position: absolute;
 	z-index: 100;
 	opacity: 1;
-	animation: ticker 10s infinite linear;
+	animation: ticker 30s infinite linear;
 }
 
 @keyframes ticker {
@@ -192,6 +192,6 @@ a {
     left: 100vw;
   }
   100%{
-    left: -50vw;
+    left: -500vw;
   }
 }

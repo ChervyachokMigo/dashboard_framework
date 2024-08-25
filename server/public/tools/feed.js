@@ -35,7 +35,7 @@ const feed_event = ({id, type, title, desc, url, icon}) => {
 		style += 'top: ' + Math.trunc(Math.random() * 90) + 'vh;';
 		setTimeout( () => {
 			$(`.feed > #${classname}_${id}`).remove();
-		}, 10000);
+		}, 30000);
 	}
 
     if (url && url.href) {
@@ -84,7 +84,7 @@ const add_event_to_page = (method, args) => {
 	if (args.type === 'ticker') {
 		setTimeout( () => {
 			remove_event(args);
-		}, 10000);
+		}, 30000);
 	}
 
     switch (method) {
