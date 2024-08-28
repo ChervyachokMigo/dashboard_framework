@@ -1,5 +1,5 @@
 const { existsSync, readFileSync, writeFileSync, mkdirSync, copyFileSync, rmSync, createWriteStream, open } = require('fs');
-const path = require('path')
+const path = require('node:path')
 const axios = require('axios');
 const md5File = require('md5-file');
 const fsExtra = require('fs-extra');

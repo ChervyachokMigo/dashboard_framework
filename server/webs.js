@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('node:path');
 const cors = require('cors')
 const permissions_policy = require("permissions-policy");
 
