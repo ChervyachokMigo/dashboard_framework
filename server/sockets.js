@@ -1,15 +1,16 @@
 
 
 const WebSocket = require('ws');
-const { isJSON, log } = require('../misc/tools');
+const { isJSON, log } = require('./misc/tools');
 const status = require('./data/status');
 const feed = require('./data/feed');
 const style = require('./data/style');
-const settings = require('../misc/settings');
+const settings = require('./misc/settings');
 const { get_image_html } = require('./data/image');
 const { get_notifies } = require('./data/notify');
 const { get_screens, get_current_screen } = require('./data/screen');
 const progress = require('./data/progress');
+const sorted = require('./data/sorted_list');
 
 let clients = [];
 
@@ -76,6 +77,9 @@ module.exports = {
                             break;
                         case 'get_current_screen': 
                             response_data = { current: get_current_screen() };
+                            break;
+						case 'get_sorted_list':
+							response_data = { list: sorted.get_list() };
                             break;
                         default:
                             log('unknown action');

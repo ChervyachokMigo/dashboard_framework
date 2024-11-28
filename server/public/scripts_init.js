@@ -26,6 +26,8 @@ $(document).ready( async () => {
             recreate_feed_list();
         });
     });
+	await include("./tools/sorted_list.js");
+
     await include("./tools/screen.js");
     //server_tools
     await include("./tools/socket.js").finally( () => {

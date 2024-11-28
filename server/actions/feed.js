@@ -1,6 +1,6 @@
 
-const { clients_send } = require("../server/sockets");
-const _feed = require("../server/data/feed");
+const { clients_send } = require("../sockets");
+const _feed = require("../data/feed");
 const { log } = require("../misc/tools");
 
 module.exports = {

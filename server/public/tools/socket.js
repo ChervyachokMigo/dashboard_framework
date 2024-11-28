@@ -23,6 +23,10 @@ const socket_actions = [
     {name: 'get_current_screen',  F: set_current_screen},
     {name: 'bind_screen_element', F: bind_screen_element},
     {name: 'get_screens',         F: set_screens},
+	{name: 'get_sorted_list',     F: create_sorted_list},
+	{name: 'add_sorted',		  F: sorted_add},
+	{name: 'change_sorted',		  F: sorted_change},
+	{name: 'remove_sorted',		  F: sorted_remove},
 ];
 
 let SOCKET = null;
@@ -39,6 +43,7 @@ const socket_onconnect = () => {
     socket_send('get_status_list');
 	socket_send('get_progress_list');
     socket_send('get_feed_list');
+	socket_send('get_sorted_list');
     socket_send('css_load');
     socket_send('get_screens');
     socket_send('get_current_screen');

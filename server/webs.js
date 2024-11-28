@@ -4,7 +4,7 @@ const permissions_policy = require("permissions-policy");
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const { log } = require('../misc/tools');
+const { log } = require('./misc/tools');
 
 const WEBSERVER_PUBLIC_PATH = path.join(__dirname, 'public');
 

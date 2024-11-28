@@ -5,15 +5,16 @@ const { init_socket_server } = require('./server/sockets');
 const { init_webserver } = require('./server/webs');
 
 module.exports = {
-    ...require('./actions/settings.js'),
+    ...require('./server/actions/settings.js'),
     
-    ...require('./actions/notify'),
-    ...require('./actions/status'),
-	...require('./actions/progress'),
-    ...require('./actions/feed'),
-    ...require('./actions/style'),
+    ...require('./server/actions/notify.js'),
+    ...require('./server/actions/status.js'),
+	...require('./server/actions/progress.js'),
+    ...require('./server/actions/feed.js'),
+	...require('./server/actions/sorted_list.js'),
+    ...require('./server/actions/style.js'),
 
-    ...require('./actions/screen'),
+    ...require('./server/actions/screen.js'),
 
     run: async (WEB_PORT, SOCKET_PORT) => {
         init_images();

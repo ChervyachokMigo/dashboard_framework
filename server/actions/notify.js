@@ -1,6 +1,6 @@
 const { log } = require("../misc/tools");
-const { set_notifies, get_notifies } = require("../server/data/notify");
-const { clients_send } = require("../server/sockets");
+const { set_notifies, get_notifies } = require("../data/notify");
+const { clients_send } = require("../sockets");
 
 module.exports = {
     /**

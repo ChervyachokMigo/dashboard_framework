@@ -1,5 +1,5 @@
-const { clients_send } = require("../server/sockets");
-const _style = require("../server/data/style");
+const { clients_send } = require("../sockets");
+const _style = require("../data/style");
 const { log } = require("../misc/tools");
 
 module.exports = {

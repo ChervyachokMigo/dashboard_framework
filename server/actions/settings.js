@@ -1,5 +1,5 @@
 const settings = require("../misc/settings");
-const { clients_send } = require("../server/sockets");
+const { clients_send } = require("../sockets");
 const { log } = require("../misc/tools");
 
 module.exports = {

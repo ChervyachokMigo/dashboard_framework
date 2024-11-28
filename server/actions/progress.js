@@ -1,6 +1,6 @@
 const { log } = require("../misc/tools");
-const _progress = require("../server/data/progress");
-const { clients_send } = require("../server/sockets");
+const _progress = require("../data/progress");
+const { clients_send } = require("../sockets");
 
 module.exports = {
 	/**
