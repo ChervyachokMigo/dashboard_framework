@@ -4,17 +4,18 @@ const _images = {
 };
 
 const change_image_html_src = (id, src) => {
+
     load_image(src).then( ({error, image_html}) => {
         if (error) {
             console.error(error);
             return false;
         }
 
-        const feed_event_selector = `.feed_event[id=${id}]`;
-        
+        const feed_event_selector = `.feed_event[id=feed_event_${id}]`;
+
         $(feed_event_selector).fadeOut(500, () => {
             delete_outer_feed_elements();
-            $(`.feed_event[id=${id}] .feed_event_icon`).html(image_html);
+            $(`.feed_event[id=feed_event_${id}] .feed_event_icon`).html(image_html);
             delete_outer_feed_elements();
             $(feed_event_selector).fadeIn(500);
         });
