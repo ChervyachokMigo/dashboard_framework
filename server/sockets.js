@@ -107,15 +107,22 @@ module.exports = {
         };
     },
 
-	destroy_socket_server: async () => {
-		await new Promise ( (res, rej) => {
-			SOCKET_SERVER.close('close', (err) => {
-				if (err) {
-					rej(err);
-				}
-				res(true);
-			})
-		});
-	}
+	// destroy_socket_server: async () => {
+	// 	console.log('closing socket server');
+	// 	return await new Promise ( (res, rej) => {
+	// 		if (clients.length > 0) {
+	// 			clients.forEach( v => {
+	// 				v.close();
+	// 			});
+	// 		}
+
+	// 		SOCKET_SERVER.close((err) => {
+	// 			if (err) {
+	// 				rej(err);
+	// 			}
+	// 			res(true);
+	// 		})
+	// 	});
+	// }
 
 }

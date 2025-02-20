@@ -1,0 +1,1 @@
+npm i && git add -A && git commit -m "autoupdate" && git push && pause

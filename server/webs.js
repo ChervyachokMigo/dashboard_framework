@@ -82,14 +82,20 @@ module.exports = {
         });
     },
 
-	destroy_webserver: async () => {
-		await new Promise ( res => {
-			WEB_SERVER.emit('close', (err) => {
-				if (err) {
-					rej(err);
-				}
-				res(true);
-			})
-		});
-	}
+	// destroy_webserver: async () => {
+	// 	console.log('Closing webserver');
+	// 	return await new Promise ( res => {
+	// 		LISTENER.closeAllConnections();
+	// 		setInterval( () => {
+	// 			let result = LISTENER.emit('close');
+	// 			if (result) {
+	// 				res(true)
+	// 			} else {
+	// 				console.log('Webserver cant closed');
+                    
+	// 			}
+	// 		}, 1000);
+			
+	// 	});
+	// }
 }
