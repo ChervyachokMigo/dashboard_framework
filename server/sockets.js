@@ -18,9 +18,11 @@ const send = async (client, action, response_data) => {
     await client.send(JSON.stringify({action, response_data}) );
 }
 
+let SOCKET_SERVER = null;
+
 module.exports = {
     init_socket_server: (SOCKET_PORT) => {
-        let SOCKET_SERVER = new WebSocket.WebSocketServer({ port: SOCKET_PORT });
+        SOCKET_SERVER = new WebSocket.WebSocketServer({ port: SOCKET_PORT });
 
         SOCKET_SERVER.on('connection',  (client) => {
             client.id = new Date().getTime();
@@ -104,5 +106,16 @@ module.exports = {
             await send(c, action, data);
         };
     },
+
+	destroy_socket_server: async () => {
+		await new Promise ( (res, rej) => {
+			SOCKET_SERVER.close('close', (err) => {
+				if (err) {
+					rej(err);
+				}
+				res(true);
+			})
+		});
+	}
 
 }

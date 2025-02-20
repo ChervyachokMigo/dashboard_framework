@@ -45,11 +45,12 @@ const HTMLMainBody = (SOCKET_PORT) => {
     return `${html_begin}${html_head}${html_body}${sctipt}${html_end}`;
 }
 
+let WEB_SERVER = null;
+
 module.exports = {
     init_webserver: async (WEB_PORT, SOCKET_PORT) => {
         return new Promise( (res, rej) => {
-            let WEB_SERVER = express();
-            
+            WEB_SERVER = express();
             WEB_SERVER.use(cors());
             WEB_SERVER.use(bodyParser.json());
             WEB_SERVER.use(bodyParser.urlencoded({ extended: false }));
@@ -75,8 +76,20 @@ module.exports = {
         
             WEB_SERVER.listen(WEB_PORT, ()=>{
                 log(`Webserver listening on\nhttp://localhost:${WEB_PORT}`);
-                res (true);
+                res (WEB_SERVER);
             });
+
         });
-    }
+    },
+
+	destroy_webserver: async () => {
+		await new Promise ( res => {
+			WEB_SERVER.emit('close', (err) => {
+				if (err) {
+					rej(err);
+				}
+				res(true);
+			})
+		});
+	}
 }
